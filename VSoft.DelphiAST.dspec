@@ -1,13 +1,13 @@
 {
  "metadata": {
   "id": "VSoft.DelphiAST",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Abstract Syntax Tree Builder for Delphi - based on Stefan Glienke's fork on github",
   "authors": "Roman Yankovsky, Stefan Glienke",
   "projectUrl": "https://github.com/sglienke/DelphiAST",
   "repositoryUrl": "https://github.com/VSoftTechnologies/DelphiAST",
   "license": "MPL-2.0",
-  "copyright": "",
+  "copyright": "Roman Yankovsky et al.",
   "tags": "AST Parser Lexer"
  },
  "targetPlatforms": [
@@ -18,7 +18,7 @@
   },
   {
    "compiler": "XE3",
-   "platforms": "Win32, Win64, OSX32",
+   "platforms": "Win32, Win64",
    "template": "default"
   },
   {
