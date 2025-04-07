@@ -179,7 +179,8 @@ const
     ptInline,
     ptFinal,
     ptExperimental,
-    ptDispId
+    ptDispId,
+    ptUnsafe
   ];
 
 type
@@ -4798,38 +4799,18 @@ end;
 procedure TmwSimplePasPar.ProceduralDirective;
 begin
   case GenID of
-    ptAbstract:
-      begin
-        DirectiveBinding;
-      end;
+    ptAbstract, ptDynamic, ptMessage, ptOverload, ptOverride, ptReintroduce, ptVirtual:
+      DirectiveBinding;
     ptCdecl, ptPascal, ptRegister, ptSafeCall, ptStdCall:
-      begin
-        DirectiveCalling;
-      end;
+      DirectiveCalling;
     ptExport, ptFar, ptNear:
-      begin
-        Directive16Bit;
-      end;
+      Directive16Bit;
     ptExternal:
-      begin
-        ExternalDirective;
-      end;
-    ptDynamic, ptMessage, ptOverload, ptOverride, ptReintroduce, ptVirtual:
-      begin
-        DirectiveBinding;
-      end;
-    ptAssembler:
-      begin
-        NextToken;
-      end;
-    ptStatic:
-      begin
-        NextToken;
-      end;
+      ExternalDirective;
+    ptAssembler, ptFinal, ptExperimental, ptDelayed, ptStatic, ptUnsafe:
+      NextToken;
     ptInline:
-      begin
-        DirectiveInline;
-      end;
+      DirectiveInline;
     ptDeprecated:
       DirectiveDeprecated;
     ptLibrary:
@@ -4840,12 +4821,8 @@ begin
       DirectiveLocal;
     ptVarargs:
       DirectiveVarargs;
-    ptFinal, ptExperimental, ptDelayed:
-      NextToken;
   else
-    begin
-      SynError(InvalidProceduralDirective);
-    end;
+    SynError(InvalidProceduralDirective);
   end;
 end;
 
@@ -5526,6 +5503,13 @@ begin
           FormalParameterList;
       end;
   end;
+
+  while ExID in [ptCdecl, ptExport, ptFar, ptNear, ptOverload, ptOverride,
+    ptPascal, ptRegister, ptSafeCall, ptStdCall, ptStatic, ptVarargs] do
+  begin
+    ProceduralDirective;
+  end;
+
   Block;
 end;
 
@@ -5534,12 +5518,6 @@ begin
   ExpectedEx(ptReference);
   Expected(ptTo);
   case TokenID of
-    ptProcedure:
-      begin
-        NextToken;
-        if TokenID = ptRoundOpen then
-          FormalParameterList;
-      end;
     ptFunction:
       begin
         NextToken;
@@ -5548,6 +5526,18 @@ begin
         Expected(ptColon);
         ReturnType;
       end;
+    ptProcedure:
+      begin
+        NextToken;
+        if TokenID = ptRoundOpen then
+          FormalParameterList;
+      end;
+  end;
+
+  while ExID in [ptCdecl, ptExport, ptFar, ptNear, ptOverload, ptOverride,
+    ptPascal, ptRegister, ptSafeCall, ptStdCall, ptStatic, ptVarargs] do
+  begin
+    ProceduralDirective;
   end;
 end;
 

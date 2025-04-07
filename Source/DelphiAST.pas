@@ -112,6 +112,7 @@ type
     procedure DirectiveBindingMessage; override;
     procedure DirectiveCalling; override;
     procedure DirectiveInline; override;
+    procedure DirectiveVarargs; override;
     procedure DispInterfaceForward; override;
     procedure DotOp; override;
     procedure ElseStatement; override;
@@ -289,7 +290,8 @@ uses
 type
   TAttributeValue = (atAsm, atTrue, atFunction, atProcedure, atClassOf, atClass,
     atConst, atConstructor, atDestructor, atEnum, atInterface, atNil, atNumeric,
-    atOut, atPointer, atName, atString, atSubRange, atVar, atDispInterface);
+    atOut, atPointer, atName, atString, atSubRange, atVar, atDispInterface,
+    atVarargs, atExternal);
 
 var
   AttributeValues: array[TAttributeValue] of string;
@@ -1068,7 +1070,7 @@ var
   QuoteCount, I: Integer;
 begin
   QuoteCount := 0;
-  for I := Low(S) to High(S) do
+  for I := 1 to Length(S) do
     if S[I] = '''' then
       Inc(QuoteCount)
     else
@@ -1141,6 +1143,16 @@ procedure TPasSyntaxTreeBuilder.DirectiveInline;
 begin
   FStack.Peek.SetAttribute(anInline, AttributeValues[atTrue]);
   inherited;
+end;
+
+procedure TPasSyntaxTreeBuilder.DirectiveVarargs;
+begin
+  FStack.Push(ntExternal).SetAttribute(anType, AttributeValues[atVarArgs]);
+  try
+    inherited;
+  finally
+    FStack.Pop;
+  end;
 end;
 
 procedure TPasSyntaxTreeBuilder.DispInterfaceForward;
@@ -1327,7 +1339,7 @@ end;
 
 procedure TPasSyntaxTreeBuilder.ExternalDirective;
 begin
-  FStack.Push(ntExternal);
+  FStack.Push(ntExternal).SetAttribute(anType, AttributeValues[atExternal]);
   try
     inherited;
   finally
