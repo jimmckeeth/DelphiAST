@@ -1,0 +1,60 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{DAF08268-6E4A-4BA7-AA91-E7094251EB7E}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="Demo\ProjectIndexer\ProjectIndexerResearch.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="Test\DelphiASTTest.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="Demo\Parser\ParserDemo.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="ProjectIndexerResearch">
+        <MSBuild Projects="Demo\ProjectIndexer\ProjectIndexerResearch.dproj"/>
+    </Target>
+    <Target Name="ProjectIndexerResearch:Clean">
+        <MSBuild Projects="Demo\ProjectIndexer\ProjectIndexerResearch.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="ProjectIndexerResearch:Make">
+        <MSBuild Projects="Demo\ProjectIndexer\ProjectIndexerResearch.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="DelphiASTTest">
+        <MSBuild Projects="Test\DelphiASTTest.dproj"/>
+    </Target>
+    <Target Name="DelphiASTTest:Clean">
+        <MSBuild Projects="Test\DelphiASTTest.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="DelphiASTTest:Make">
+        <MSBuild Projects="Test\DelphiASTTest.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="ParserDemo">
+        <MSBuild Projects="Demo\Parser\ParserDemo.dproj"/>
+    </Target>
+    <Target Name="ParserDemo:Clean">
+        <MSBuild Projects="Demo\Parser\ParserDemo.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="ParserDemo:Make">
+        <MSBuild Projects="Demo\Parser\ParserDemo.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="ProjectIndexerResearch;DelphiASTTest;ParserDemo"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="ProjectIndexerResearch:Clean;DelphiASTTest:Clean;ParserDemo:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="ProjectIndexerResearch:Make;DelphiASTTest:Make;ParserDemo:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>

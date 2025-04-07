@@ -1,109 +1,136 @@
 object MainForm: TMainForm
   Left = 0
   Top = 0
+  Margins.Left = 5
+  Margins.Top = 5
+  Margins.Right = 5
+  Margins.Bottom = 5
   Caption = 'DelphiAST Parser Demo'
-  ClientHeight = 436
-  ClientWidth = 666
+  ClientHeight = 654
+  ClientWidth = 999
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
-  Font.Height = -11
+  Font.Height = -17
   Font.Name = 'Tahoma'
   Font.Style = []
   Menu = MainMenu
-  OldCreateOrder = False
-  PixelsPerInch = 96
-  TextHeight = 13
+  PixelsPerInch = 144
+  TextHeight = 21
   object Splitter1: TSplitter
     Left = 0
-    Top = 291
-    Width = 666
-    Height = 3
+    Top = 437
+    Width = 999
+    Height = 4
     Cursor = crVSplit
+    Margins.Left = 5
+    Margins.Top = 5
+    Margins.Right = 5
+    Margins.Bottom = 5
     Align = alTop
-    ExplicitTop = 41
-    ExplicitWidth = 206
+    MinSize = 45
   end
   object OutputMemo: TMemo
     Left = 0
-    Top = 41
-    Width = 666
-    Height = 250
+    Top = 62
+    Width = 999
+    Height = 375
+    Margins.Left = 5
+    Margins.Top = 5
+    Margins.Right = 5
+    Margins.Bottom = 5
     Align = alTop
     ScrollBars = ssBoth
     TabOrder = 0
-    ExplicitTop = 33
-    ExplicitHeight = 168
   end
   object StatusBar: TStatusBar
     Left = 0
-    Top = 417
-    Width = 666
-    Height = 19
+    Top = 626
+    Width = 999
+    Height = 28
+    Margins.Left = 5
+    Margins.Top = 5
+    Margins.Right = 5
+    Margins.Bottom = 5
     Panels = <
       item
-        Width = 50
+        Width = 75
       end>
-    ExplicitTop = 370
   end
   object CheckBox1: TCheckBox
     AlignWithMargins = True
-    Left = 3
-    Top = 397
-    Width = 660
-    Height = 17
+    Left = 5
+    Top = 596
+    Width = 989
+    Height = 25
+    Margins.Left = 5
+    Margins.Top = 5
+    Margins.Right = 5
+    Margins.Bottom = 5
     Align = alBottom
     Caption = 
       'Use string interning for less memory consumption (has a minor im' +
       'pact on speed)'
     TabOrder = 2
-    ExplicitTop = 350
   end
   object CommentsBox: TListBox
     Left = 0
-    Top = 335
-    Width = 666
-    Height = 59
+    Top = 503
+    Width = 999
+    Height = 88
+    Margins.Left = 5
+    Margins.Top = 5
+    Margins.Right = 5
+    Margins.Bottom = 5
     Align = alClient
-    ItemHeight = 13
+    ItemHeight = 21
     TabOrder = 3
-    ExplicitTop = 288
   end
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 666
-    Height = 41
+    Width = 999
+    Height = 62
+    Margins.Left = 5
+    Margins.Top = 5
+    Margins.Right = 5
+    Margins.Bottom = 5
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 4
-    ExplicitLeft = 88
-    ExplicitTop = 8
-    ExplicitWidth = 185
     object Label1: TLabel
-      Left = 16
-      Top = 14
-      Width = 63
-      Height = 13
+      Left = 24
+      Top = 21
+      Width = 94
+      Height = 21
+      Margins.Left = 5
+      Margins.Top = 5
+      Margins.Right = 5
+      Margins.Bottom = 5
       Caption = 'Syntax Tree:'
     end
   end
   object Panel2: TPanel
     Left = 0
-    Top = 294
-    Width = 666
-    Height = 41
+    Top = 441
+    Width = 999
+    Height = 62
+    Margins.Left = 5
+    Margins.Top = 5
+    Margins.Right = 5
+    Margins.Bottom = 5
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 5
-    ExplicitLeft = 184
-    ExplicitTop = 272
-    ExplicitWidth = 185
     object Label2: TLabel
-      Left = 16
-      Top = 14
-      Width = 86
-      Height = 13
+      Left = 24
+      Top = 21
+      Width = 135
+      Height = 21
+      Margins.Left = 5
+      Margins.Top = 5
+      Margins.Right = 5
+      Margins.Bottom = 5
       Caption = 'List of Comments:'
     end
   end
@@ -118,7 +145,7 @@ object MainForm: TMainForm
   object OpenDialog: TOpenDialog
     Filter = 'Delphi Unit|*.pas|Delphi Package|*.dpk|Delphi Project|*.dpr'
     Options = [ofHideReadOnly, ofPathMustExist, ofFileMustExist, ofEnableSizing]
-    Left = 272
+    Left = 344
     Top = 96
   end
 end

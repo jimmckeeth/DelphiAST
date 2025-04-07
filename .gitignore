@@ -98,3 +98,4 @@ $RECYCLE.BIN/
 *.o
 *.compiled
 
+*.delphilsp.json
