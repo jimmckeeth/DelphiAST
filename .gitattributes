@@ -25,3 +25,4 @@
 *.dpr eol=crlf
 *.dfm eol=crlf
 *.inc eol=crlf
+*.psd filter=lfs diff=lfs merge=lfs -text
