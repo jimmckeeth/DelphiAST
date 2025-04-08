@@ -1,10 +1,15 @@
-[![](https://tokei.rs/b1/github/RomanYankovsky/DelphiAST?category=lines)](https://github.com/RomanYankovsky/DelphiAST) [![](https://tokei.rs/b1/github/RomanYankovsky/DelphiAST?category=code)](https://github.com/RomanYankovsky/DelphiAST) [![](https://tokei.rs/b1/github/RomanYankovsky/DelphiAST?category=files)](https://github.com/RomanYankovsky/DelphiAST)
-### Abstract Syntax Tree Builder for Delphi 
-With DelphiAST you can take real Delphi code and get an abstract syntax tree. One unit at time and without a symbol table though. 
+[![](https://tokei.rs/b1/github/jimmckeeth/DelphiAST?category=lines)](https://github.com/jimmckeeth/DelphiAST) [![](https://tokei.rs/b1/github/jimmckeeth/DelphiAST?category=code)](https://github.com/jimmckeeth/DelphiAST) [![](https://tokei.rs/b1/github/jimmckeeth/DelphiAST?category=files)](https://github.com/jimmckeeth/DelphiAST)
 
-FreePascal and Lazarus compatible.
+**Update:** This is a fork of [Roman Yankovsky's original](https://github.com/RomanYankovsky/DelphiAST), pulling in changes from [other forks](https://github.com/RomanYankovsky/DelphiAST/network). I wll review the exising [pull requests](https://github.com/RomanYankovsky/DelphiAST/pulls) and am accepting [new ones here](https://github.com/jimmckeeth/DelphiAST/pulls).
 
-#### Sample input
+# Abstract Syntax Tree (AST) Builder for Object Pascal
+[<img src="https://raw.githubusercontent.com/jimmckeeth/DelphiAST/refs/heads/master/Graphics/ObjectPascalAST.png" align="right" width="250">](https://github.com/jimmckeeth/DelphiAST/)
+
+With [DelphiAST](https://github.com/jimmckeeth/DelphiAST/) you can take real Delphi code and get an abstract syntax tree. One unit at time and without a symbol table though. 
+
+Compatible with [Delphi](https://www.embarcadero.com/products/delphi), [FreePascal](https://www.freepascal.org/), & [Lazarus](https://www.lazarus-ide.org/).
+
+## Sample input
 ```delphi
 unit Unit1;
 
