@@ -1,0 +1,84 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{EBA7708B-4B20-4D71-B9A3-66065E774900}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="src\ParserVCL.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="src\ParserCLI.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="..\Parser\ParserDemo.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="tests\ParserTests.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="tests\TestDataBrowser\TestDataBrowser.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="ParserVCL">
+        <MSBuild Projects="src\ParserVCL.dproj"/>
+    </Target>
+    <Target Name="ParserVCL:Clean">
+        <MSBuild Projects="src\ParserVCL.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="ParserVCL:Make">
+        <MSBuild Projects="src\ParserVCL.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="ParserCLI">
+        <MSBuild Projects="src\ParserCLI.dproj"/>
+    </Target>
+    <Target Name="ParserCLI:Clean">
+        <MSBuild Projects="src\ParserCLI.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="ParserCLI:Make">
+        <MSBuild Projects="src\ParserCLI.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="ParserDemo">
+        <MSBuild Projects="..\Parser\ParserDemo.dproj"/>
+    </Target>
+    <Target Name="ParserDemo:Clean">
+        <MSBuild Projects="..\Parser\ParserDemo.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="ParserDemo:Make">
+        <MSBuild Projects="..\Parser\ParserDemo.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="ParserTests">
+        <MSBuild Projects="tests\ParserTests.dproj"/>
+    </Target>
+    <Target Name="ParserTests:Clean">
+        <MSBuild Projects="tests\ParserTests.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="ParserTests:Make">
+        <MSBuild Projects="tests\ParserTests.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="TestDataBrowser">
+        <MSBuild Projects="tests\TestDataBrowser\TestDataBrowser.dproj"/>
+    </Target>
+    <Target Name="TestDataBrowser:Clean">
+        <MSBuild Projects="tests\TestDataBrowser\TestDataBrowser.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="TestDataBrowser:Make">
+        <MSBuild Projects="tests\TestDataBrowser\TestDataBrowser.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="ParserVCL;ParserCLI;ParserDemo;ParserTests;TestDataBrowser"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="ParserVCL:Clean;ParserCLI:Clean;ParserDemo:Clean;ParserTests:Clean;TestDataBrowser:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="ParserVCL:Make;ParserCLI:Make;ParserDemo:Make;ParserTests:Make;TestDataBrowser:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>

@@ -3,13 +3,19 @@
         <ProjectGuid>{DAF08268-6E4A-4BA7-AA91-E7094251EB7E}</ProjectGuid>
     </PropertyGroup>
     <ItemGroup>
-        <Projects Include="Demo\ProjectIndexer\ProjectIndexerResearch.dproj">
-            <Dependencies/>
-        </Projects>
         <Projects Include="Test\DelphiASTTest.dproj">
             <Dependencies/>
         </Projects>
+        <Projects Include="Demo\ProjectIndexer\ProjectIndexerResearch.dproj">
+            <Dependencies/>
+        </Projects>
         <Projects Include="Demo\Parser\ParserDemo.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="Demo\FindChange\FindPanelColors.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="Demo\CliParser\CliParser.dproj">
             <Dependencies/>
         </Projects>
     </ItemGroup>
@@ -20,15 +26,6 @@
             <Default.Personality/>
         </BorlandProject>
     </ProjectExtensions>
-    <Target Name="ProjectIndexerResearch">
-        <MSBuild Projects="Demo\ProjectIndexer\ProjectIndexerResearch.dproj"/>
-    </Target>
-    <Target Name="ProjectIndexerResearch:Clean">
-        <MSBuild Projects="Demo\ProjectIndexer\ProjectIndexerResearch.dproj" Targets="Clean"/>
-    </Target>
-    <Target Name="ProjectIndexerResearch:Make">
-        <MSBuild Projects="Demo\ProjectIndexer\ProjectIndexerResearch.dproj" Targets="Make"/>
-    </Target>
     <Target Name="DelphiASTTest">
         <MSBuild Projects="Test\DelphiASTTest.dproj"/>
     </Target>
@@ -37,6 +34,15 @@
     </Target>
     <Target Name="DelphiASTTest:Make">
         <MSBuild Projects="Test\DelphiASTTest.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="ProjectIndexerResearch">
+        <MSBuild Projects="Demo\ProjectIndexer\ProjectIndexerResearch.dproj"/>
+    </Target>
+    <Target Name="ProjectIndexerResearch:Clean">
+        <MSBuild Projects="Demo\ProjectIndexer\ProjectIndexerResearch.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="ProjectIndexerResearch:Make">
+        <MSBuild Projects="Demo\ProjectIndexer\ProjectIndexerResearch.dproj" Targets="Make"/>
     </Target>
     <Target Name="ParserDemo">
         <MSBuild Projects="Demo\Parser\ParserDemo.dproj"/>
@@ -47,14 +53,32 @@
     <Target Name="ParserDemo:Make">
         <MSBuild Projects="Demo\Parser\ParserDemo.dproj" Targets="Make"/>
     </Target>
+    <Target Name="FindPanelColors">
+        <MSBuild Projects="Demo\FindChange\FindPanelColors.dproj"/>
+    </Target>
+    <Target Name="FindPanelColors:Clean">
+        <MSBuild Projects="Demo\FindChange\FindPanelColors.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="FindPanelColors:Make">
+        <MSBuild Projects="Demo\FindChange\FindPanelColors.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="CliParser">
+        <MSBuild Projects="Demo\CliParser\CliParser.dproj"/>
+    </Target>
+    <Target Name="CliParser:Clean">
+        <MSBuild Projects="Demo\CliParser\CliParser.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="CliParser:Make">
+        <MSBuild Projects="Demo\CliParser\CliParser.dproj" Targets="Make"/>
+    </Target>
     <Target Name="Build">
-        <CallTarget Targets="ProjectIndexerResearch;DelphiASTTest;ParserDemo"/>
+        <CallTarget Targets="DelphiASTTest;ProjectIndexerResearch;ParserDemo;FindPanelColors;CliParser"/>
     </Target>
     <Target Name="Clean">
-        <CallTarget Targets="ProjectIndexerResearch:Clean;DelphiASTTest:Clean;ParserDemo:Clean"/>
+        <CallTarget Targets="DelphiASTTest:Clean;ProjectIndexerResearch:Clean;ParserDemo:Clean;FindPanelColors:Clean;CliParser:Clean"/>
     </Target>
     <Target Name="Make">
-        <CallTarget Targets="ProjectIndexerResearch:Make;DelphiASTTest:Make;ParserDemo:Make"/>
+        <CallTarget Targets="DelphiASTTest:Make;ProjectIndexerResearch:Make;ParserDemo:Make;FindPanelColors:Make;CliParser:Make"/>
     </Target>
     <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
 </Project>

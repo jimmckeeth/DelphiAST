@@ -101,3 +101,7 @@ $RECYCLE.BIN/
 *.delphilsp.json
 *.res
 .vscode/settings.json
+/Original
+.vscode/tasks.json
+**/Debug
+**/Release
