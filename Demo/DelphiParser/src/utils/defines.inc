@@ -1,4 +1,4 @@
 {$IFDEF FPC}{$MODE Delphi}{$ENDIF}
 
-// Need full FastMM4 on path
-{$DEFINE CheckMemory}
+// Needs FastMM4.pas on path
+{$DEFINE FastMM4}

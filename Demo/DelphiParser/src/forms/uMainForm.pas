@@ -1,6 +1,6 @@
 unit uMainForm;
 
-{$INCLUDE ..\utils\Defines.inc}
+{$include ..\utils\defines.inc}
 
 interface
 
@@ -10,25 +10,25 @@ uses
 
 type
   TMainForm = class(TForm)
-  OutputMemo: TMemo;
-  MainMenu: TMainMenu;
-  OpenDelphiUnit1: TMenuItem;
-  OpenDialog: TOpenDialog;
-  StatusBar: TStatusBar;
-  CheckBox1: TCheckBox;
-  CommentsBox: TListBox;
-  Panel1: TPanel;
-  Panel2: TPanel;
-  Splitter1: TSplitter;
-  Label1: TLabel;
-  Label2: TLabel;
-  procedure OpenDelphiUnit1Click(Sender: TObject);
+    OutputMemo: TMemo;
+    MainMenu: TMainMenu;
+    OpenDelphiUnit1: TMenuItem;
+    OpenDialog: TOpenDialog;
+    StatusBar: TStatusBar;
+    CheckBox1: TCheckBox;
+    CommentsBox: TListBox;
+    Panel1: TPanel;
+    Panel2: TPanel;
+    Splitter1: TSplitter;
+    Label1: TLabel;
+    Label2: TLabel;
+    procedure OpenDelphiUnit1Click(Sender: TObject);
   private
-  FParser: TParserCore;
-  procedure UpdateStatusBarText(const StatusText: string);
-  procedure Parse(const FileName: string; UseStringInterning: Boolean);
+    FParser: TParserCore;
+    procedure UpdateStatusBarText(const StatusText: string);
+    procedure Parse(const FileName: string; UseStringInterning: Boolean);
   public
-  destructor Destroy; override;
+    destructor Destroy; override;
   end;
 
 var
@@ -37,10 +37,13 @@ var
 implementation
 
 uses
+  StringPool,
+  {$IFDEF FastMM4}
   {$IFNDEF FPC}
-  uStringUsageLogging, FastMM4,
+    uStringUsageLogging,
   {$ENDIF}
-  StringPool, uMemoryUtils,
+  uMemoryUtils,
+  {$ENDIF}
   DelphiAST, DelphiAST.Writer, DelphiAST.Classes,
   SimpleParser.Lexer.Types, IOUtils, Diagnostics,
   DelphiAST.SimpleParserEx;
@@ -52,38 +55,33 @@ uses
 {$ENDIF}
 
 procedure TMainForm.Parse(const FileName: string; UseStringInterning: Boolean);
-
 begin
   OutputMemo.Clear;
   CommentsBox.Clear;
 
   if not Assigned(FParser) then
     FParser := TParserCore.Create;
-
+    
   FParser.UseStringInterning := UseStringInterning;
-
-  FParser.Parse(FileName);
-  OutputMemo.Lines.Text := FParser.XMLOutput;
-  CommentsBox.Items.Assign(FParser.Comments);
-  if FParser.Errors <> '' then
+  
+  if FParser.Parse(FileName) then
   begin
-    CommentsBox.Items.Add('Error(s):');
-    CommentsBox.Items.Add(FParser.Errors);
-  end;
-{$IFDEF CheckMemory}
-    UpdateStatusBarText(Format('Parsed file in %d ms - using %.0n K of memory',
-      [FParser.ParseTime, FParser.MemoryUsage * 1.0]));
-{$ELSE}
+    OutputMemo.Lines.Text := FParser.XMLOutput;
+    CommentsBox.Items.Assign(FParser.Comments);
+    {$IFDEF FastMM4}
+    UpdateStatusBarText(Format('Parsed file in %d ms using %d K memory',
+      [FParser.ParseTime, FParser.MemoryUsage]));
+    {$ELSE}
     UpdateStatusBarText(Format('Parsed file in %d ms',
       [FParser.ParseTime]));
-{$ENDIF}
-
+    {$ENDIF}
+  end;
 end;
 
 procedure TMainForm.OpenDelphiUnit1Click(Sender: TObject);
 begin
   if OpenDialog.Execute then
-  Parse(OpenDialog.FileName, CheckBox1.Checked);
+    Parse(OpenDialog.FileName, CheckBox1.Checked);
 end;
 
 procedure TMainForm.UpdateStatusBarText(const StatusText: string);

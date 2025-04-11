@@ -7,7 +7,7 @@ program ParserCLI;
 {$R *.res}
 
 uses
-  {$IFDEF CheckMemory}
+  {$IFDEF FastMM4}
   FastMM4,
   {$ENDIF}
   System.SysUtils, 
@@ -78,7 +78,7 @@ begin
       else
         ExitCode := 0;
 
-      {$IFDEF CheckMemory}
+      {$IFDEF FastMM4}
       WriteLn(Format('// Parsing completed in %d ms using %.0n K of memory',
         [Parser.ParseTime, Parser.MemoryUsage * 1.0]));
       {$ELSE}

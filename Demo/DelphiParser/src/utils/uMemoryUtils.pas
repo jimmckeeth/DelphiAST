@@ -6,9 +6,11 @@ function MemoryUsed: Cardinal;
 
 implementation
 
+{$IFDEF FastMM4}
 {$IFNDEF FPC}
 uses
   FastMM4;
+{$ENDIF}
 {$ENDIF}
 
 {$IFNDEF FPC}

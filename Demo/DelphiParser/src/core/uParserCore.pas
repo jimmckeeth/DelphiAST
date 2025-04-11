@@ -17,7 +17,7 @@ type
     FParseTime: Int64;
     FUseStringInterning: Boolean;
     FFilePath: string;
-{$IFDEF CheckMemory}
+{$IFDEF FastMM4}
     FMemoryUsage: Cardinal;
     function GetMemoryUsed: Cardinal;
 {$ENDIF}
@@ -31,21 +31,21 @@ type
     property XMLOutput: string read FXMLOutput;
     property Comments: TStrings read FComments;
     property Errors: string read FErrors;
-{$IFDEF CheckMemory}
+{$IFDEF FastMM4}
     property MemoryUsage: Cardinal read FMemoryUsage;
 {$ENDIF}
     property ParseTime: Int64 read FParseTime;
-  property UseStringInterning: Boolean read FUseStringInterning write FUseStringInterning;
-  property FilePath: string read FFilePath;
+    property UseStringInterning: Boolean read FUseStringInterning write FUseStringInterning;
+    property FilePath: string read FFilePath;
   end;
 
 implementation
 
 uses
-{$IFDEF CheckMemory}
-FastMM4,
-{$ENDIF}
-DelphiAST.SimpleParserEx, uIncludeHandler;
+  {$IFDEF FastMM4}
+  FastMM4,
+  {$ENDIF}
+  DelphiAST.SimpleParserEx, uIncludeHandler;
 
 { TParserCore }
 
@@ -70,7 +70,7 @@ begin
   inherited;
 end;
 
-{$IFDEF CheckMemory}
+{$IFDEF FastMM4}
   function TParserCore.GetMemoryUsed: Cardinal;
   {$IFNDEF FPC}
   var
@@ -92,7 +92,7 @@ end;
 function TParserCore.Parse(const AFileName: string): Boolean;
 var
   SyntaxTree: TSyntaxNode;
-{$IFDEF CheckMemory}
+{$IFDEF FastMM4}
   memused: Cardinal;
 {$endif}
   sw: TStopwatch;
@@ -116,7 +116,7 @@ begin
     StringPool := nil;
     OnHandleString := nil;
   end;
-{$IFDEF CheckMemory}
+{$IFDEF FastMM4}
   memused := GetMemoryUsed;
 {$ENDIF}
   sw := TStopwatch.StartNew;
@@ -167,7 +167,7 @@ begin
 
   sw.Stop;
   FParseTime := sw.ElapsedMilliseconds;
-{$IFDEF CheckMemory}
+{$IFDEF FastMM4}
   FMemoryUsage := (GetMemoryUsed - memused) div 1024;
 {$endif}
 end;

@@ -14,7 +14,7 @@ procedure LogStringUsageToFile(const fileName: string);
 implementation
 
 uses
-  Generics.Defaults, FastMM4, Math, Classes, SysUtils;
+  FastMM4, Generics.Defaults, Math, Classes, SysUtils;
 
 type
   PStrRec = ^StrRec;

@@ -78,13 +78,11 @@
         </DelphiCompile>
         <DCCReference Include="forms\uMainForm.pas">
             <Form>MainForm</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="core\uIncludeHandler.pas"/>
         <DCCReference Include="core\uParserCore.pas"/>
         <DCCReference Include="utils\uMemoryUtils.pas"/>
         <DCCReference Include="utils\uParserUtils.pas"/>
-        <DCCReference Include="utils\uStringUsageLogging.pas"/>
         <None Include="utils\defines.inc"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
