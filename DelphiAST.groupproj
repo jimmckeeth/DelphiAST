@@ -15,9 +15,6 @@
         <Projects Include="Demo\FindChange\FindPanelColors.dproj">
             <Dependencies/>
         </Projects>
-        <Projects Include="Demo\CliParser\CliParser.dproj">
-            <Dependencies/>
-        </Projects>
     </ItemGroup>
     <ProjectExtensions>
         <Borland.Personality>Default.Personality.12</Borland.Personality>
@@ -62,23 +59,14 @@
     <Target Name="FindPanelColors:Make">
         <MSBuild Projects="Demo\FindChange\FindPanelColors.dproj" Targets="Make"/>
     </Target>
-    <Target Name="CliParser">
-        <MSBuild Projects="Demo\CliParser\CliParser.dproj"/>
-    </Target>
-    <Target Name="CliParser:Clean">
-        <MSBuild Projects="Demo\CliParser\CliParser.dproj" Targets="Clean"/>
-    </Target>
-    <Target Name="CliParser:Make">
-        <MSBuild Projects="Demo\CliParser\CliParser.dproj" Targets="Make"/>
-    </Target>
     <Target Name="Build">
-        <CallTarget Targets="DelphiASTTest;ProjectIndexerResearch;ParserDemo;FindPanelColors;CliParser"/>
+        <CallTarget Targets="DelphiASTTest;ProjectIndexerResearch;ParserDemo;FindPanelColors"/>
     </Target>
     <Target Name="Clean">
-        <CallTarget Targets="DelphiASTTest:Clean;ProjectIndexerResearch:Clean;ParserDemo:Clean;FindPanelColors:Clean;CliParser:Clean"/>
+        <CallTarget Targets="DelphiASTTest:Clean;ProjectIndexerResearch:Clean;ParserDemo:Clean;FindPanelColors:Clean"/>
     </Target>
     <Target Name="Make">
-        <CallTarget Targets="DelphiASTTest:Make;ProjectIndexerResearch:Make;ParserDemo:Make;FindPanelColors:Make;CliParser:Make"/>
+        <CallTarget Targets="DelphiASTTest:Make;ProjectIndexerResearch:Make;ParserDemo:Make;FindPanelColors:Make"/>
     </Target>
     <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
 </Project>

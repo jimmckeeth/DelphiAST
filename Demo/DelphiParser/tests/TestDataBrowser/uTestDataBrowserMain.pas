@@ -8,17 +8,25 @@ uses
   FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
   FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
   Data.DB, FireDAC.Comp.DataSet, FireDAC.Comp.Client, Vcl.Grids,
-  Vcl.DBGrids, RzDBGrid, Vcl.DBCtrls, RzDBEdit;
+  Vcl.DBGrids, RzDBGrid, Vcl.DBCtrls, RzDBEdit, SynEdit, SynDBEdit,
+  Vcl.ExtCtrls, RzPanel, RzSplit, SynEditCodeFolding, SynHighlighterPas,
+  SynEditHighlighter, SynHighlighterXML;
 
 type
   TForm32 = class(TForm)
   MemParseData: TFDMemTable;
   DataSource1: TDataSource;
   RzDBGrid1: TRzDBGrid;
-  RzDBMemo1: TRzDBMemo;
   RzDBMemo2: TRzDBMemo;
   RzDBMemo3: TRzDBMemo;
+    DBSynEdit1: TDBSynEdit;
+    SynEdit1: TSynEdit;
+    SynXMLSyn1: TSynXMLSyn;
+    SynPasSyn1: TSynPasSyn;
+    RzSplitter1: TRzSplitter;
+    RzSplitter2: TRzSplitter;
   procedure FormCreate(Sender: TObject);
+    procedure MemParseDataAfterScroll(DataSet: TDataSet);
   private
   { Private declarations }
   public
@@ -36,30 +44,48 @@ uses
   IOUtils;
 
 const
-  CTestDataPath = '..\..\..\data';
+  CTestDataPath: array of string = [
+    '..\..\..\data',
+    '..\..\..\..\..\..\source',
+    '..\..\..\..\..\..\source\SimpleParser',
+    '..\..\..\..\..\..\test\snippets'];
 
 procedure TForm32.FormCreate(Sender: TObject);
 begin
-  for var FileName in TDirectory.GetFiles(CTestDataPath, '*.*') do
+  for var path in CTestDataPath do
   begin
-    var parser := TParserCore.create();
-    try
-      parser.UseStringInterning := True;
-      var status := parser.Parse(FileName);
-      MemParseData.AppendRecord([
-        TPath.GetFileName(fileName),
-        status,
-        parser.XMLOutput,
-        parser.Comments,
-        parser.Errors,
-        parser.ParseTime,
-        parser.MemoryUsage]);
-    finally
-      parser.Free;
+
+    for var FileName in TDirectory.GetFiles(path, '*.*') do
+    begin
+      var parser := TParserCore.create();
+      try
+        parser.UseStringInterning := True;
+        var status := parser.Parse(FileName);
+        MemParseData.AppendRecord([
+          TPath.GetFileName(fileName),
+          status,
+          parser.XMLOutput,
+          parser.Comments,
+          parser.Errors,
+          parser.ParseTime,
+          parser.MemoryUsage,
+          path,
+          path]);
+      finally
+        parser.Free;
+      end;
+
+    end;
   end;
 
-  end;
+end;
 
+procedure TForm32.MemParseDataAfterScroll(DataSet: TDataSet);
+begin
+  SynEdit1.Lines.LoadFromFile(
+    TPath.Combine(
+      MemParseData.Fields[7].AsString,
+      MemParseData.Fields[0].AsString));
 end;
 
 end.
