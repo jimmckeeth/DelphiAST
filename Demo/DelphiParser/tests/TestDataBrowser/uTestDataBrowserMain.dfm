@@ -28,13 +28,12 @@ object Form32: TForm32
     Margins.Bottom = 5
     Position = 504
     Percent = 41
+    UpperLeft.Color = 15987699
+    LowerRight.Color = 15987699
     SplitterWidth = 6
     Align = alClient
+    Color = 15987699
     TabOrder = 0
-    ExplicitLeft = 10
-    ExplicitTop = 10
-    ExplicitWidth = 663
-    ExplicitHeight = 627
     BarSize = (
       504
       0
@@ -60,6 +59,7 @@ object Form32: TForm32
       Font.Height = -18
       Font.Name = 'Segoe UI'
       Font.Style = []
+      Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
       ParentFont = False
       ReadOnly = True
       TabOrder = 0
@@ -121,11 +121,14 @@ object Form32: TForm32
       Margins.Bottom = 5
       Position = 339
       Percent = 47
+      UsePercent = True
+      RealTimeDrag = True
+      UpperLeft.Color = 15987699
+      LowerRight.Color = 15987699
       SplitterWidth = 6
       Align = alClient
+      Color = 15987699
       TabOrder = 0
-      ExplicitLeft = 4
-      ExplicitWidth = 797
       BarSize = (
         339
         0
@@ -159,6 +162,8 @@ object Form32: TForm32
         ParentColor = False
         ParentFont = False
         TabOrder = 0
+        OnClick = DBSynEdit1Click
+        OnKeyPress = DBSynEdit1KeyPress
         BookMarkOptions.LeftMargin = 3
         BookMarkOptions.Xoffset = 18
         ExtraLineSpacing = 3
@@ -192,11 +197,6 @@ object Form32: TForm32
         ReadOnly = True
         RightEdge = 0
         SelectedColor.Alpha = 0.400000005960464500
-        SelectionMode = smLine
-        ExplicitLeft = -150
-        ExplicitTop = -75
-        ExplicitWidth = 300
-        ExplicitHeight = 225
       end
       object RzDBMemo2: TRzDBMemo
         Left = 0
@@ -225,7 +225,6 @@ object Form32: TForm32
         DataField = 'Errors'
         DataSource = DataSource1
         TabOrder = 0
-        ExplicitWidth = 452
       end
       object SynEdit1: TSynEdit
         Left = 0
@@ -279,11 +278,6 @@ object Form32: TForm32
         ReadOnly = True
         RightEdge = 0
         SelectedColor.Alpha = 0.400000005960464500
-        SelectionMode = smLine
-        ExplicitLeft = 84
-        ExplicitTop = 261
-        ExplicitWidth = 300
-        ExplicitHeight = 225
       end
     end
   end

@@ -1,0 +1,41 @@
+<DCCProject xmlns="">
+  <VersionInfo>
+    <ApplicationVersion>V2.1.1 build 8</ApplicationVersion>
+    <FileFormatVersion>1</FileFormatVersion>
+  </VersionInfo>
+  <SourceCodeFiles>
+    <SourceBasePath>C:\Users\jim\Documents\Git\OPAST\Demo\FindPropertyAssignments\</SourceBasePath>
+    <SourceFile Selected="True">C:\Users\jim\Documents\Git\OPAST\Demo\FindPropertyAssignments\uFindPropertyAssignment.pas</SourceFile>
+    <CodePage>0</CodePage>
+  </SourceCodeFiles>
+  <OutputSettings>
+    <ReportOutputFormats>ofHTML</ReportOutputFormats>
+    <ScriptOutputPath>C:\Users\jim\Documents\Git\OPAST\Demo\FindPropertyAssignments\CodeCoverage</ScriptOutputPath>
+    <ReportOutputPath>C:\Users\jim\Documents\Git\OPAST\Demo\FindPropertyAssignments\CodeCoverage</ReportOutputPath>
+    <DisplayEMMAExternally>False</DisplayEMMAExternally>
+    <DisplayXMLExternally>False</DisplayXMLExternally>
+    <DisplayHTMLExternally>True</DisplayHTMLExternally>
+    <XMLLineNumbers>False</XMLLineNumbers>
+    <XMLCombineLines>False</XMLCombineLines>
+    <XMLJacocoFormat>False</XMLJacocoFormat>
+  </OutputSettings>
+  <UnitTestFiles>
+    <ExecutableToAnalyze>C:\Users\jim\Documents\Git\OPAST\Demo\FindPropertyAssignments\FindPropertyAssignments.exe</ExecutableToAnalyze>
+    <CommandLineParams></CommandLineParams>
+    <UseExeDirAsWorkingDir>True</UseExeDirAsWorkingDir>
+    <MapFile>C:\Users\jim\Documents\Git\OPAST\Demo\FindPropertyAssignments\FindPropertyAssignments.map</MapFile>
+    <CodeCoverageExe>C:\Users\jim\Documents\Git\delphi-code-coverage-wizard-plus\Binaries\CodeCoverage.exe</CodeCoverageExe>
+  </UnitTestFiles>
+  <MiscSettings>
+    <UseRelativePaths>False</UseRelativePaths>
+    <AdditionalParams></AdditionalParams>
+    <AdditionalParamsIndex>0</AdditionalParamsIndex>
+    <ExcludedClassPrefixes></ExcludedClassPrefixes>
+    <LogToTextFile>False</LogToTextFile>
+    <LogToOutputDebugString>False</LogToOutputDebugString>
+    <PassThroughExitCode>False</PassThroughExitCode>
+    <UseNumberOfTimesLineExecutes>False</UseNumberOfTimesLineExecutes>
+    <NumberOfTimesLineExecutes>0</NumberOfTimesLineExecutes>
+    <IncludeFileExtension>False</IncludeFileExtension>
+  </MiscSettings>
+</DCCProject>

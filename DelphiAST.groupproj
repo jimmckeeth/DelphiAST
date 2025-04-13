@@ -12,7 +12,7 @@
         <Projects Include="Demo\Parser\ParserDemo.dproj">
             <Dependencies/>
         </Projects>
-        <Projects Include="Demo\FindChange\FindPanelColors.dproj">
+        <Projects Include="Demo\FindPropertyAssignments\FindPropertyAssignments.dproj">
             <Dependencies/>
         </Projects>
     </ItemGroup>
@@ -50,23 +50,23 @@
     <Target Name="ParserDemo:Make">
         <MSBuild Projects="Demo\Parser\ParserDemo.dproj" Targets="Make"/>
     </Target>
-    <Target Name="FindPanelColors">
-        <MSBuild Projects="Demo\FindChange\FindPanelColors.dproj"/>
+    <Target Name="FindPropertyAssignments">
+        <MSBuild Projects="Demo\FindPropertyAssignments\FindPropertyAssignments.dproj"/>
     </Target>
-    <Target Name="FindPanelColors:Clean">
-        <MSBuild Projects="Demo\FindChange\FindPanelColors.dproj" Targets="Clean"/>
+    <Target Name="FindPropertyAssignments:Clean">
+        <MSBuild Projects="Demo\FindPropertyAssignments\FindPropertyAssignments.dproj" Targets="Clean"/>
     </Target>
-    <Target Name="FindPanelColors:Make">
-        <MSBuild Projects="Demo\FindChange\FindPanelColors.dproj" Targets="Make"/>
+    <Target Name="FindPropertyAssignments:Make">
+        <MSBuild Projects="Demo\FindPropertyAssignments\FindPropertyAssignments.dproj" Targets="Make"/>
     </Target>
     <Target Name="Build">
-        <CallTarget Targets="DelphiASTTest;ProjectIndexerResearch;ParserDemo;FindPanelColors"/>
+        <CallTarget Targets="DelphiASTTest;ProjectIndexerResearch;ParserDemo;FindPropertyAssignments"/>
     </Target>
     <Target Name="Clean">
-        <CallTarget Targets="DelphiASTTest:Clean;ProjectIndexerResearch:Clean;ParserDemo:Clean;FindPanelColors:Clean"/>
+        <CallTarget Targets="DelphiASTTest:Clean;ProjectIndexerResearch:Clean;ParserDemo:Clean;FindPropertyAssignments:Clean"/>
     </Target>
     <Target Name="Make">
-        <CallTarget Targets="DelphiASTTest:Make;ProjectIndexerResearch:Make;ParserDemo:Make;FindPanelColors:Make"/>
+        <CallTarget Targets="DelphiASTTest:Make;ProjectIndexerResearch:Make;ParserDemo:Make;FindPropertyAssignments:Make"/>
     </Target>
     <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
 </Project>

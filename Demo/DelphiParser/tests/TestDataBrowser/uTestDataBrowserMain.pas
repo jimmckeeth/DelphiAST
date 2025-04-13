@@ -27,6 +27,8 @@ type
     RzSplitter2: TRzSplitter;
   procedure FormCreate(Sender: TObject);
     procedure MemParseDataAfterScroll(DataSet: TDataSet);
+    procedure DBSynEdit1Click(Sender: TObject);
+    procedure DBSynEdit1KeyPress(Sender: TObject; var Key: Char);
   private
   { Private declarations }
   public
@@ -50,6 +52,16 @@ const
     '..\..\..\..\..\..\source\SimpleParser',
     '..\..\..\..\..\..\test\snippets'];
 
+procedure TForm32.DBSynEdit1Click(Sender: TObject);
+begin
+  Caption := DBSynEdit1.Lines[DBSynEdit1.CaretY-1];
+end;
+
+procedure TForm32.DBSynEdit1KeyPress(Sender: TObject; var Key: Char);
+begin
+  Caption := DBSynEdit1.Lines[DBSynEdit1.CaretY-1];
+end;
+
 procedure TForm32.FormCreate(Sender: TObject);
 begin
   for var path in CTestDataPath do
@@ -70,7 +82,7 @@ begin
           parser.ParseTime,
           parser.MemoryUsage,
           path,
-          path]);
+          TPath.GetFileName(path)]);
       finally
         parser.Free;
       end;

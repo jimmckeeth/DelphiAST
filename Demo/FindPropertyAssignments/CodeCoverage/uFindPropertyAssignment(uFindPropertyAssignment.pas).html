@@ -1,0 +1,443 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Delphi CodeCoverage Coverage Report</title>
+<style type="text/css">
+body {max-width: max-content;margin: auto;}
+table {border-spacing:0;}
+table, td, th {border: 0;}
+td, th {background: white; margin: 0; padding: .5em 1em}
+table small { color: #777; }
+p, h1, h2, h3, th {font-family: verdana,arial,sans-serif; font-size: 10pt;}
+td {font-family: consolas,courier,monospace; font-size: 10pt;}
+thead, th {background: #808C98; color: white; }
+table th small { color: #ddd; }
+th[idx] {cursor: pointer; user-select: none;}
+table.o tr td:nth-child(1) {font-weight: bold;}
+table.o tr td:nth-child(2) {text-align: right;}
+table.o tr td {border-width: 1px;}
+table.s {width: calc(min(80em, 95vw));}
+table.s tr td {padding: .1em .5em; white-space: pre-wrap;}
+table.s tr td:first-child {text-align: right; font-weight: bold; vertical-align: top}
+table.s tr.notcovered td {background: #ddf;}
+table.s tr.nocodegen td {background: #ffe;}
+table.s tr.covered td {background: #cfc;}
+table.s tr.covered td:first-child {color: green;}
+table.s {border-width: 1px 0 1px 1px;}
+table.sum td { background-position: 50%; background-repeat: no-repeat; background-size: 90% 70%; }
+table.sum tr:nth-child(odd) td { background-color: #f4f4f4}
+table.sum tr:hover td, tr:hover td a { filter: invert(10%) }
+table.sum tr th {text-align:left; border: .5px solid #5d4e4c; height: 1em}
+table.sum tr td {text-align:right;}
+table.sum tr td:first-child {text-align:left;}
+table.sum thead th { position: sticky; top:0; }
+table.sum thead tr + tr th { position: sticky; top: calc(2.5em - 2px); }
+table.sum tfoot th { position: sticky; bottom:0; }
+table.sum tfoot th+th {text-align: right;}
+table.sum a, table.sum a:visited {color: #5d4e4c; text-decoration: none;}
+#nav {position: fixed;overflow: visible;left: min(calc(50% + 41em), calc(100% - 6em));padding: .1em .5em .1em .2em;background: white;box-shadow: 1px 1px 3px #888;}
+#nav div {opacity: .3; user-select: none; pointer-events: none;}
+#nav div.active {opacity: 1;	cursor: pointer;	pointer-events: initial;}
+#nav div.active:hover {color: #00A;}
+</style>
+</head>
+<body>
+<p>Coverage report for <bold>uFindPropertyAssignment (C:\Users\jim\Documents\Git\OPAST\Demo\FindPropertyAssignments\uFindPropertyAssignment.pas)</bold>.</p>
+<p>Generated at 4/12/2025 6:15:56 PM by <a href="https://github.com/DelphiCodeCoverage/DelphiCodeCoverage" target="_blank" title="DelphiCodeCoverage on GitHub">DelphiCodeCoverage</a> - an open source tool for Delphi Code Coverage.</p>
+<p>Statistics for C:\Users\jim\Documents\Git\OPAST\Demo\FindPropertyAssignments\uFindPropertyAssignment.pas</p>
+<table class="o"><tr><td>Number of lines covered<td>111<td rowspan=3 style="background: conic-gradient(#9fe098 100%, #eee 100%);width: 4.5em; border-radius: 50%"><tr><td>Number of lines with code gen<td>111<tr><td>Line coverage<td>100<small>.0</small>&nbsp;%</table>
+<br><br>
+<div id="nav"><div id="nav-prev">&#x25b2; Prev</div><div id="nav-next">&#x25bc; Next</div></div>
+<table class="s">
+<tr class="nocodegen"><td>1<td>unit uFindPropertyAssignment;
+<tr class="nocodegen"><td>2<td>
+<tr class="nocodegen"><td>3<td>interface
+<tr class="nocodegen"><td>4<td>
+<tr class="nocodegen"><td>5<td>uses
+<tr class="nocodegen"><td>6<td>  DelphiAST,
+<tr class="nocodegen"><td>7<td>  DelphiAST.Classes,
+<tr class="nocodegen"><td>8<td>  DelphiAST.Consts,
+<tr class="nocodegen"><td>9<td>  System.SysUtils,
+<tr class="nocodegen"><td>10<td>  System.Classes,
+<tr class="nocodegen"><td>11<td>  System.Generics.Collections;
+<tr class="nocodegen"><td>12<td>
+<tr class="nocodegen"><td>13<td>type
+<tr class="nocodegen"><td>14<td>  TFindPropertyAssignment = class
+<tr class="nocodegen"><td>15<td>  public type
+<tr class="nocodegen"><td>16<td>    TResult = record
+<tr class="nocodegen"><td>17<td>      LineNumber: UInt64;
+<tr class="nocodegen"><td>18<td>      FullName: string;
+<tr class="nocodegen"><td>19<td>      Value: string;
+<tr class="nocodegen"><td>20<td>      constructor Create(ALineNumber: UInt64; AFullName, AValue: String);
+<tr class="nocodegen"><td>21<td>    end;
+<tr class="nocodegen"><td>22<td>    TResults = TArray&lt;TResult&gt;;
+<tr class="nocodegen"><td>23<td>  private
+<tr class="nocodegen"><td>24<td>    FValid: Boolean;
+<tr class="nocodegen"><td>25<td>    FContextStack: TStack&lt;string&gt;;
+<tr class="nocodegen"><td>26<td>    FCurrentFileName: string;
+<tr class="nocodegen"><td>27<td>    FTargetClassName: string;
+<tr class="nocodegen"><td>28<td>    FTargetPropertyName: string;
+<tr class="nocodegen"><td>29<td>    FResults: TList&lt;TResult&gt;;
+<tr class="nocodegen"><td>30<td>
+<tr class="nocodegen"><td>31<td>    procedure ProcessNode(Node: TSyntaxNode);
+<tr class="nocodegen"><td>32<td>    procedure HandleWithStatement(Node: TSyntaxNode);
+<tr class="nocodegen"><td>33<td>    procedure HandleAssignment(Node: TSyntaxNode);
+<tr class="nocodegen"><td>34<td>    procedure ProcessChildNodes(Node: TSyntaxNode);
+<tr class="nocodegen"><td>35<td>    procedure PopWithContext(Node: TSyntaxNode);
+<tr class="nocodegen"><td>36<td>
+<tr class="nocodegen"><td>37<td>    function GetFullNameWithContext(const BaseName: string; Node: TSyntaxNode): string;
+<tr class="nocodegen"><td>38<td>    //function TryGetWithContext(Node: TSyntaxNode; var Context: string): Boolean;
+<tr class="nocodegen"><td>39<td>    procedure Parse;
+<tr class="nocodegen"><td>40<td>    procedure SetCurrentFileName(const Value: string);
+<tr class="nocodegen"><td>41<td>    procedure SetTargetClassName(const Value: string);
+<tr class="nocodegen"><td>42<td>    procedure SetTargetPropertyName(const Value: string);
+<tr class="nocodegen"><td>43<td>    function GetResults: TResults;
+<tr class="nocodegen"><td>44<td>    function GetFullName(Node: TSyntaxNode): string;
+<tr class="nocodegen"><td>45<td>  public
+<tr class="nocodegen"><td>46<td>    property TargetClassName: string read FTargetClassName write SetTargetClassName;
+<tr class="nocodegen"><td>47<td>    property TargetPropertyName: string read FTargetPropertyName write SetTargetPropertyName;
+<tr class="nocodegen"><td>48<td>    property CurrentFileName: string read FCurrentFileName write SetCurrentFileName;
+<tr class="nocodegen"><td>49<td>    property Results: TResults read GetResults;
+<tr class="nocodegen"><td>50<td>    constructor Create; overload;
+<tr class="nocodegen"><td>51<td>    constructor Create(const ATargetClassName, ATargetPropertyName: string); overload;
+<tr class="nocodegen"><td>52<td>    destructor Destroy; override;
+<tr class="nocodegen"><td>53<td>  end;
+<tr class="nocodegen"><td>54<td>
+<tr class="nocodegen"><td>55<td>implementation
+<tr class="nocodegen"><td>56<td>
+<tr class="nocodegen"><td>57<td>function TFindPropertyAssignment.GetFullName(Node: TSyntaxNode): string;
+<tr class="nocodegen"><td>58<td>var
+<tr class="nocodegen"><td>59<td>  j: Integer;
+<tr class="nocodegen"><td>60<td>  ParentNode, TypeNode, IndexNode: TSyntaxNode;
+<tr class="covered"><td>61<td>begin
+<tr class="covered"><td>62<td>  Result := '';
+<tr class="covered"><td>63<td>  if Node = nil then
+<tr class="nocodegen"><td>64<td>    Exit;
+<tr class="nocodegen"><td>65<td>
+<tr class="covered"><td>66<td>  case Node.Typ of
+<tr class="nocodegen"><td>67<td>    ntLHS:
+<tr class="covered"><td>68<td>      if Node.HasChildren then
+<tr class="covered"><td>69<td>        Result := GetFullName(Node.ChildNodes[0]);
+<tr class="nocodegen"><td>70<td>
+<tr class="nocodegen"><td>71<td>    ntIdentifier:
+<tr class="covered"><td>72<td>      Result := Node.GetAttribute(anName);
+<tr class="nocodegen"><td>73<td>
+<tr class="nocodegen"><td>74<td>    ntDot:
+<tr class="nocodegen"><td>75<td>      begin
+<tr class="covered"><td>76<td>        for j := 0 to High(Node.ChildNodes) do
+<tr class="nocodegen"><td>77<td>        begin
+<tr class="covered"><td>78<td>          if Result &lt;&gt; '' then
+<tr class="covered"><td>79<td>            Result := Result + '.';
+<tr class="covered"><td>80<td>          Result := Result + GetFullName(Node.ChildNodes[j]);
+<tr class="covered"><td>81<td>        end;
+<tr class="nocodegen"><td>82<td>      end;
+<tr class="nocodegen"><td>83<td>
+<tr class="nocodegen"><td>84<td>    ntCall:
+<tr class="nocodegen"><td>85<td>      begin
+<tr class="nocodegen"><td>86<td>        // Handle type casts
+<tr class="covered"><td>87<td>        if Node.HasChildren and (Length(Node.ChildNodes) &gt;= 2) then
+<tr class="nocodegen"><td>88<td>        begin
+<tr class="covered"><td>89<td>          TypeNode := Node.ChildNodes[0];
+<tr class="covered"><td>90<td>          if (TypeNode.Typ = ntIdentifier) and
+<tr class="nocodegen"><td>91<td>            (TypeNode.GetAttribute(anName) = FTargetClassName) then
+<tr class="nocodegen"><td>92<td>          begin
+<tr class="nocodegen"><td>93<td>            // Look for indexed access like Controls[i]
+<tr class="covered"><td>94<td>            IndexNode := Node.ChildNodes[1].FindNode(ntIndexed);
+<tr class="covered"><td>95<td>            if not Assigned(IndexNode) then
+<tr class="covered"><td>96<td>              Result := FTargetClassName+'(' + GetFullName(Node.ChildNodes[1]) + ')'
+<tr class="nocodegen"><td>97<td>//            else
+<tr class="nocodegen"><td>98<td>//              {TODO -cTesting : This branch is unused and is untested. }
+<tr class="nocodegen"><td>99<td>//              Result := FTargetClassName+'(' + GetFullName(Node.ChildNodes[1]) + '[i])'
+<tr class="nocodegen"><td>100<td>          end;
+<tr class="nocodegen"><td>101<td>        end;
+<tr class="nocodegen"><td>102<td>      end;
+<tr class="nocodegen"><td>103<td>
+<tr class="nocodegen"><td>104<td>//    ntIndexed:
+<tr class="nocodegen"><td>105<td>//      begin {TODO -cTesting : This branch is unused and is untested. }
+<tr class="nocodegen"><td>106<td>//        // Handle array access like Controls[i]
+<tr class="nocodegen"><td>107<td>//        if Node.HasChildren then
+<tr class="nocodegen"><td>108<td>//          Result := GetFullName(Node.ChildNodes[0]) + '[i]';
+<tr class="nocodegen"><td>109<td>//      end;
+<tr class="nocodegen"><td>110<td>  end;
+<tr class="nocodegen"><td>111<td>
+<tr class="nocodegen"><td>112<td>{TODO -cTesting : This branch is unused and is untested. }
+<tr class="nocodegen"><td>113<td>  // Look for parent type cast when we have just the property
+<tr class="nocodegen"><td>114<td>//  if SameText(Result, FTargetPropertyName) then
+<tr class="nocodegen"><td>115<td>//  begin
+<tr class="nocodegen"><td>116<td>//    ParentNode := Node.ParentNode;
+<tr class="nocodegen"><td>117<td>//    while Assigned(ParentNode) do
+<tr class="nocodegen"><td>118<td>//    begin
+<tr class="nocodegen"><td>119<td>//      if ParentNode.Typ = ntCall then
+<tr class="nocodegen"><td>120<td>//      begin
+<tr class="nocodegen"><td>121<td>//        TypeNode := ParentNode.ChildNodes[0];
+<tr class="nocodegen"><td>122<td>//        if (TypeNode.Typ = ntIdentifier) and
+<tr class="nocodegen"><td>123<td>//          (TypeNode.GetAttribute(anName) = FTargetClassName) then
+<tr class="nocodegen"><td>124<td>//        begin
+<tr class="nocodegen"><td>125<td>//          Result := FTargetClassName + '().' + FTargetPropertyName;
+<tr class="nocodegen"><td>126<td>//          Break;
+<tr class="nocodegen"><td>127<td>//        end;
+<tr class="nocodegen"><td>128<td>//      end;
+<tr class="nocodegen"><td>129<td>//      ParentNode := ParentNode.ParentNode;
+<tr class="nocodegen"><td>130<td>//    end;
+<tr class="nocodegen"><td>131<td>//  end;
+<tr class="covered"><td>132<td>end;
+<tr class="nocodegen"><td>133<td>
+<tr class="nocodegen"><td>134<td>{ TPanelColorFinder }
+<tr class="nocodegen"><td>135<td>
+<tr class="nocodegen"><td>136<td>constructor TFindPropertyAssignment.Create;
+<tr class="covered"><td>137<td>begin
+<tr class="covered"><td>138<td>  inherited;
+<tr class="covered"><td>139<td>  FResults := TList&lt;TResult&gt;.Create;
+<tr class="covered"><td>140<td>  FValid := False;
+<tr class="covered"><td>141<td>  FContextStack := TStack&lt;string&gt;.Create;
+<tr class="covered"><td>142<td>  FTargetClassName := 'TPanel'; // Default class name
+<tr class="covered"><td>143<td>  FTargetPropertyName := 'Color'; // Default property name
+<tr class="covered"><td>144<td>end;
+<tr class="nocodegen"><td>145<td>
+<tr class="nocodegen"><td>146<td>constructor TFindPropertyAssignment.Create(const ATargetClassName, ATargetPropertyName: string);
+<tr class="covered"><td>147<td>begin
+<tr class="covered"><td>148<td>  Create;
+<tr class="covered"><td>149<td>  FTargetClassName := ATargetClassName;
+<tr class="covered"><td>150<td>  FTargetPropertyName := ATargetPropertyName;
+<tr class="covered"><td>151<td>end;
+<tr class="nocodegen"><td>152<td>
+<tr class="nocodegen"><td>153<td>destructor TFindPropertyAssignment.Destroy;
+<tr class="covered"><td>154<td>begin
+<tr class="covered"><td>155<td>  FContextStack.Free;
+<tr class="covered"><td>156<td>  FResults.Free;
+<tr class="covered"><td>157<td>  inherited;
+<tr class="covered"><td>158<td>end;
+<tr class="nocodegen"><td>159<td>
+<tr class="nocodegen"><td>160<td>{TODO -cTesting : This function is unused and is untested. }
+<tr class="nocodegen"><td>161<td>//function TFindPropertyAssignment.TryGetWithContext(Node: TSyntaxNode; var Context:
+<tr class="nocodegen"><td>162<td>//  string): Boolean;
+<tr class="nocodegen"><td>163<td>//var
+<tr class="nocodegen"><td>164<td>//  TypeCheck: TSyntaxNode;
+<tr class="nocodegen"><td>165<td>//  Expression: TSyntaxNode;
+<tr class="nocodegen"><td>166<td>//begin
+<tr class="nocodegen"><td>167<td>//  Result := False;
+<tr class="nocodegen"><td>168<td>//  TypeCheck := Node;
+<tr class="nocodegen"><td>169<td>//
+<tr class="nocodegen"><td>170<td>//  // Walk up the tree looking for with statement
+<tr class="nocodegen"><td>171<td>//  while Assigned(TypeCheck) do
+<tr class="nocodegen"><td>172<td>//  begin
+<tr class="nocodegen"><td>173<td>//    if TypeCheck.Typ = ntWith then
+<tr class="nocodegen"><td>174<td>//    begin
+<tr class="nocodegen"><td>175<td>//      Expression := TypeCheck.FindNode([ntExpressions]);
+<tr class="nocodegen"><td>176<td>//      if Assigned(Expression) and Expression.HasChildren then
+<tr class="nocodegen"><td>177<td>//      begin
+<tr class="nocodegen"><td>178<td>//        Context := GetFullName(Expression.ChildNodes[0]);
+<tr class="nocodegen"><td>179<td>//        Result := True;
+<tr class="nocodegen"><td>180<td>//        Break;
+<tr class="nocodegen"><td>181<td>//      end;
+<tr class="nocodegen"><td>182<td>//    end;
+<tr class="nocodegen"><td>183<td>//    TypeCheck := TypeCheck.ParentNode;
+<tr class="nocodegen"><td>184<td>//  end;
+<tr class="nocodegen"><td>185<td>//end;
+<tr class="nocodegen"><td>186<td>
+<tr class="nocodegen"><td>187<td>function TFindPropertyAssignment.GetFullNameWithContext(const BaseName: string; Node:
+<tr class="nocodegen"><td>188<td>  TSyntaxNode): string;
+<tr class="covered"><td>189<td>begin
+<tr class="covered"><td>190<td>  Result := BaseName;
+<tr class="nocodegen"><td>191<td>
+<tr class="nocodegen"><td>192<td>  // Always check for context if we have the target property name
+<tr class="covered"><td>193<td>  if SameText(Result, FTargetPropertyName) then
+<tr class="nocodegen"><td>194<td>  begin
+<tr class="nocodegen"><td>195<td>    // First check stack for with context
+<tr class="covered"><td>196<td>    if FContextStack.Count &gt; 0 then
+<tr class="covered"><td>197<td>      Result := FContextStack.Peek + '.' + Result
+<tr class="nocodegen"><td>198<td>//    else
+<tr class="nocodegen"><td>199<td>//    begin {TODO -cTesting : This branch is unused and is untested. }
+<tr class="nocodegen"><td>200<td>//      var Context: string;
+<tr class="nocodegen"><td>201<td>//      if TryGetWithContext(Node, Context) then
+<tr class="nocodegen"><td>202<td>//        Result := Context + '.' + Result;
+<tr class="nocodegen"><td>203<td>//    end;
+<tr class="nocodegen"><td>204<td>  end;
+<tr class="covered"><td>205<td>end;
+<tr class="nocodegen"><td>206<td>
+<tr class="nocodegen"><td>207<td>function TFindPropertyAssignment.GetResults: TResults;
+<tr class="covered"><td>208<td>begin
+<tr class="covered"><td>209<td>  if not FValid then Parse;
+<tr class="covered"><td>210<td>  Result := FResults.ToArray;
+<tr class="covered"><td>211<td>end;
+<tr class="nocodegen"><td>212<td>
+<tr class="nocodegen"><td>213<td>procedure TFindPropertyAssignment.HandleWithStatement(Node: TSyntaxNode);
+<tr class="nocodegen"><td>214<td>var
+<tr class="nocodegen"><td>215<td>  Expression: TSyntaxNode;
+<tr class="nocodegen"><td>216<td>  Context: string;
+<tr class="covered"><td>217<td>begin
+<tr class="covered"><td>218<td>  Expression := Node.FindNode([ntExpressions]);
+<tr class="covered"><td>219<td>  if Assigned(Expression) and Expression.HasChildren then
+<tr class="nocodegen"><td>220<td>  begin
+<tr class="nocodegen"><td>221<td>    // Get the full name of the context object
+<tr class="covered"><td>222<td>    Context := GetFullName(Expression.ChildNodes[0].ChildNodes[0]);
+<tr class="covered"><td>223<td>    if Context &lt;&gt; '' then
+<tr class="nocodegen"><td>224<td>    begin
+<tr class="nocodegen"><td>225<td>      // Push the context onto the stack
+<tr class="covered"><td>226<td>      FContextStack.Push(Context);
+<tr class="nocodegen"><td>227<td>    end;
+<tr class="nocodegen"><td>228<td>  end;
+<tr class="covered"><td>229<td>end;
+<tr class="nocodegen"><td>230<td>
+<tr class="nocodegen"><td>231<td>procedure TFindPropertyAssignment.HandleAssignment(Node: TSyntaxNode);
+<tr class="nocodegen"><td>232<td>var
+<tr class="nocodegen"><td>233<td>  LHS, RHS: TSyntaxNode;
+<tr class="nocodegen"><td>234<td>  FullName, Value: string;
+<tr class="covered"><td>235<td>begin
+<tr class="covered"><td>236<td>  LHS := Node.FindNode([ntLHS]);
+<tr class="covered"><td>237<td>  RHS := Node.FindNode([ntRHS]);
+<tr class="covered"><td>238<td>  if Assigned(LHS) and Assigned(RHS) then
+<tr class="nocodegen"><td>239<td>  begin
+<tr class="nocodegen"><td>240<td>    // Get the value from RHS - drill down to the IDENTIFIER node
+<tr class="covered"><td>241<td>    Value := '';
+<tr class="covered"><td>242<td>    if RHS.HasChildren then
+<tr class="nocodegen"><td>243<td>    begin
+<tr class="covered"><td>244<td>      var ExprNode := RHS.ChildNodes[0];  // Get EXPRESSION node
+<tr class="covered"><td>245<td>      if ExprNode.HasChildren then
+<tr class="nocodegen"><td>246<td>      begin
+<tr class="covered"><td>247<td>        var IdNode := ExprNode.ChildNodes[0];  // Get IDENTIFIER node
+<tr class="covered"><td>248<td>        if IdNode.Typ = ntIdentifier then
+<tr class="covered"><td>249<td>          Value := IdNode.GetAttribute(anName);
+<tr class="nocodegen"><td>250<td>      end;
+<tr class="nocodegen"><td>251<td>    end;
+<tr class="nocodegen"><td>252<td>
+<tr class="nocodegen"><td>253<td>    // First check if this is a simple identifier matching the target property
+<tr class="covered"><td>254<td>    if LHS.HasChildren and (LHS.ChildNodes[0].Typ = ntIdentifier) and
+<tr class="nocodegen"><td>255<td>      SameText(LHS.ChildNodes[0].GetAttribute(anName), FTargetPropertyName) then
+<tr class="nocodegen"><td>256<td>    begin
+<tr class="nocodegen"><td>257<td>      // Get name with context first
+<tr class="covered"><td>258<td>      FullName := GetFullNameWithContext(FTargetPropertyName, Node);
+<tr class="nocodegen"><td>259<td>    end
+<tr class="nocodegen"><td>260<td>    else
+<tr class="nocodegen"><td>261<td>    begin
+<tr class="nocodegen"><td>262<td>      // Get the full name otherwise
+<tr class="covered"><td>263<td>      FullName := GetFullName(LHS);
+<tr class="nocodegen"><td>264<td>    end;
+<tr class="covered"><td>265<td>    FResults.Add(TResult.Create(Node.Line, FullName, Value));
+<tr class="nocodegen"><td>266<td>  end;
+<tr class="covered"><td>267<td>end;
+<tr class="nocodegen"><td>268<td>
+<tr class="nocodegen"><td>269<td>procedure TFindPropertyAssignment.ProcessChildNodes(Node: TSyntaxNode);
+<tr class="nocodegen"><td>270<td>var
+<tr class="nocodegen"><td>271<td>  i: Integer;
+<tr class="covered"><td>272<td>begin
+<tr class="covered"><td>273<td>  for i := 0 to High(Node.ChildNodes) do
+<tr class="covered"><td>274<td>    ProcessNode(Node.ChildNodes[i]);
+<tr class="covered"><td>275<td>end;
+<tr class="nocodegen"><td>276<td>
+<tr class="nocodegen"><td>277<td>procedure TFindPropertyAssignment.PopWithContext(Node: TSyntaxNode);
+<tr class="covered"><td>278<td>begin
+<tr class="covered"><td>279<td>  if (Node.Typ = ntWith) and (FContextStack.Count &gt; 0) then
+<tr class="covered"><td>280<td>    FContextStack.Pop;
+<tr class="covered"><td>281<td>end;
+<tr class="nocodegen"><td>282<td>
+<tr class="nocodegen"><td>283<td>procedure TFindPropertyAssignment.ProcessNode(Node: TSyntaxNode);
+<tr class="covered"><td>284<td>begin
+<tr class="covered"><td>285<td>  if Node.Typ = ntWith then
+<tr class="nocodegen"><td>286<td>  begin
+<tr class="covered"><td>287<td>    HandleWithStatement(Node);
+<tr class="covered"><td>288<td>    ProcessChildNodes(Node);
+<tr class="covered"><td>289<td>    PopWithContext(Node);
+<tr class="nocodegen"><td>290<td>  end
+<tr class="nocodegen"><td>291<td>  else
+<tr class="nocodegen"><td>292<td>  begin
+<tr class="covered"><td>293<td>    if Node.Typ = ntAssign then
+<tr class="covered"><td>294<td>      HandleAssignment(Node);
+<tr class="covered"><td>295<td>    ProcessChildNodes(Node);
+<tr class="nocodegen"><td>296<td>  end;
+<tr class="covered"><td>297<td>end;
+<tr class="nocodegen"><td>298<td>
+<tr class="nocodegen"><td>299<td>procedure TFindPropertyAssignment.SetCurrentFileName(const Value: string);
+<tr class="covered"><td>300<td>begin
+<tr class="covered"><td>301<td>  FValid := False;
+<tr class="covered"><td>302<td>  FCurrentFileName := Value;
+<tr class="covered"><td>303<td>end;
+<tr class="nocodegen"><td>304<td>
+<tr class="nocodegen"><td>305<td>procedure TFindPropertyAssignment.SetTargetClassName(const Value: string);
+<tr class="covered"><td>306<td>begin
+<tr class="covered"><td>307<td>  FValid := False;
+<tr class="covered"><td>308<td>  FTargetClassName := Value;
+<tr class="covered"><td>309<td>end;
+<tr class="nocodegen"><td>310<td>
+<tr class="nocodegen"><td>311<td>procedure TFindPropertyAssignment.SetTargetPropertyName(const Value: string);
+<tr class="covered"><td>312<td>begin
+<tr class="covered"><td>313<td>  FValid := False;
+<tr class="covered"><td>314<td>  FTargetPropertyName := Value;
+<tr class="covered"><td>315<td>end;
+<tr class="nocodegen"><td>316<td>
+<tr class="nocodegen"><td>317<td>procedure TFindPropertyAssignment.Parse;
+<tr class="nocodegen"><td>318<td>var
+<tr class="nocodegen"><td>319<td>  SyntaxTree: TSyntaxNode;
+<tr class="covered"><td>320<td>begin
+<tr class="covered"><td>321<td>  SyntaxTree := TPasSyntaxTreeBuilder.Run(FCurrentFileName, False);
+<tr class="covered"><td>322<td>  try
+<tr class="covered"><td>323<td>    ProcessNode(SyntaxTree);
+<tr class="nocodegen"><td>324<td>  finally
+<tr class="covered"><td>325<td>    SyntaxTree.Free;
+<tr class="nocodegen"><td>326<td>  end;
+<tr class="covered"><td>327<td>  FValid := True;
+<tr class="covered"><td>328<td>end;
+<tr class="nocodegen"><td>329<td>
+<tr class="nocodegen"><td>330<td>{ TFindPropertyAssignment.TResult }
+<tr class="nocodegen"><td>331<td>
+<tr class="nocodegen"><td>332<td>constructor TFindPropertyAssignment.TResult.Create(ALineNumber: UInt64;
+<tr class="nocodegen"><td>333<td>  AFullName, AValue: String);
+<tr class="covered"><td>334<td>begin
+<tr class="covered"><td>335<td>  LineNumber := ALineNumber;
+<tr class="covered"><td>336<td>  FullName := AFullName;
+<tr class="covered"><td>337<td>  Value := AValue;
+<tr class="covered"><td>338<td>end;
+<tr class="nocodegen"><td>339<td>
+<tr class="nocodegen"><td>340<td>end.
+</table>
+<script>(function () {
+var starts = [],prev = document.getElementById("nav-prev"),next = document.getElementById("nav-next");
+(function () {
+var p;
+document.querySelectorAll("table.s tr").forEach(r => {
+if (r.classList.contains("notcovered")) {
+if (!p) starts.push(r);
+p = r;
+} else { p = null }
+})
+})();
+function findPrev() {
+var y = prev.getBoundingClientRect().top - 4;
+for (var i=starts.length-1; i>=0; i--) {
+if (starts[i].getBoundingClientRect().top < y) return starts[i]
+}
+}
+function findNext() {
+var y = next.getBoundingClientRect().top + 4;
+for (var i=0; i<starts.length; i++) {
+if (starts[i].getBoundingClientRect().top > y) return starts[i];
+}
+}
+function onScroll() {
+prev.setAttribute("class", findPrev() ? "active" : "");
+next.setAttribute("class", findNext() ? "active" : "");
+onScroll.pending = 0;
+}
+document.addEventListener("scroll", function() {
+if (!onScroll.pending) { onScroll.pending = requestAnimationFrame(onScroll) }
+});
+onScroll();
+function scrollTo(row) {
+if (row) window.scrollTo({ behavior: "smooth", top: window.scrollY+row.getBoundingClientRect().top-prev.getBoundingClientRect().top });
+}
+next.addEventListener("click", () => scrollTo(findNext()) );
+prev.addEventListener("click", () => scrollTo(findPrev()) );
+})();</script>
+<script>
+const getCellValue = (tr, idx) => tr.children[idx].innerText || tr.children[idx].textContent;
+const comparer = (idx, asc) => (a, b) => ((v1, v2) =>!isNaN(parseFloat(v1 || "-")) && !isNaN(parseFloat(v2 || "-")) ? parseFloat(v1)-parseFloat(v2) : v1.toString().localeCompare(v2))(getCellValue(asc ? a : b, idx), getCellValue(asc ? b : a, idx));
+document.querySelectorAll("thead th[idx]").forEach(th => th.addEventListener("click", (() => {
+	const table = th.closest("table").querySelector("tbody");
+	Array.from(table.querySelectorAll("tr"))
+		.sort(comparer(+th.getAttribute("idx"), this.asc = !this.asc))
+		.forEach(tr => table.appendChild(tr) );
+	})));
+</script>
+</body>
+</html>
