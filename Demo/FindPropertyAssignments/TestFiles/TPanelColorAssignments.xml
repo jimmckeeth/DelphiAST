@@ -1,0 +1,226 @@
+<?xml version="1.0"?>
+<UNIT line="1" col="1" name="TPanelColorAssignments">
+  <INTERFACE begin_line="3" begin_col="1" end_line="27" end_col="1">
+    <USES begin_line="5" begin_col="1" end_line="9" end_col="1">
+      <UNIT line="6" col="3" name="Winapi.Windows"/>
+      <UNIT line="6" col="19" name="Winapi.Messages"/>
+      <UNIT line="6" col="36" name="System.SysUtils"/>
+      <UNIT line="6" col="53" name="System.Variants"/>
+      <UNIT line="6" col="70" name="System.Classes"/>
+      <UNIT line="6" col="86" name="Vcl.Graphics"/>
+      <UNIT line="7" col="3" name="Vcl.Controls"/>
+      <UNIT line="7" col="17" name="Vcl.Forms"/>
+      <UNIT line="7" col="28" name="Vcl.Dialogs"/>
+      <UNIT line="7" col="41" name="Vcl.ExtCtrls"/>
+      <UNIT line="7" col="55" name="Vcl.StdCtrls"/>
+    </USES>
+    <TYPESECTION line="9" col="1">
+      <TYPEDECL begin_line="10" begin_col="3" end_line="22" end_col="6" name="TForm31">
+        <TYPE line="10" col="13" type="class">
+          <TYPE line="10" col="19" name="TForm"/>
+          <FIELD line="11" col="3">
+            <NAME line="11" col="3" value="Panel1"/>
+            <TYPE line="11" col="11" name="TPanel"/>
+          </FIELD>
+          <FIELD line="12" col="5">
+            <NAME line="12" col="5" value="Panel2"/>
+            <TYPE line="12" col="13" name="TPanel"/>
+          </FIELD>
+          <FIELD line="13" col="5">
+            <NAME line="13" col="5" value="Panel3"/>
+            <TYPE line="13" col="13" name="TPanel"/>
+          </FIELD>
+          <FIELD line="14" col="5">
+            <NAME line="14" col="5" value="Button1"/>
+            <TYPE line="14" col="14" name="TButton"/>
+          </FIELD>
+          <METHOD begin_line="15" begin_col="5" end_line="16" end_col="5" kind="procedure" name="FormCreate">
+            <PARAMETERS line="15" col="25">
+              <PARAMETER line="15" col="26">
+                <NAME line="15" col="26" value="Sender"/>
+                <TYPE line="15" col="34" name="TObject"/>
+              </PARAMETER>
+            </PARAMETERS>
+          </METHOD>
+          <METHOD begin_line="16" begin_col="5" end_line="17" end_col="5" kind="procedure" name="FormShow">
+            <PARAMETERS line="16" col="23">
+              <PARAMETER line="16" col="24">
+                <NAME line="16" col="24" value="Sender"/>
+                <TYPE line="16" col="32" name="TObject"/>
+              </PARAMETER>
+            </PARAMETERS>
+          </METHOD>
+          <METHOD begin_line="17" begin_col="5" end_line="18" end_col="3" kind="procedure" name="Button1Click">
+            <PARAMETERS line="17" col="27">
+              <PARAMETER line="17" col="28">
+                <NAME line="17" col="28" value="Sender"/>
+                <TYPE line="17" col="36" name="TObject"/>
+              </PARAMETER>
+            </PARAMETERS>
+          </METHOD>
+          <PRIVATE line="18" col="3" visibility="true"/>
+          <PUBLIC line="20" col="3" visibility="true"/>
+        </TYPE>
+      </TYPEDECL>
+    </TYPESECTION>
+    <VARIABLES line="24" col="1">
+      <VARIABLE line="25" col="3">
+        <NAME line="25" col="3" value="Form31"/>
+        <TYPE line="25" col="11" name="TForm31"/>
+      </VARIABLE>
+    </VARIABLES>
+  </INTERFACE>
+  <IMPLEMENTATION begin_line="27" begin_col="1" end_line="54" end_col="1">
+    <METHOD begin_line="31" begin_col="1" end_line="43" end_col="1" name="TForm31.Button1Click" kind="procedure">
+      <PARAMETERS line="31" col="31">
+        <PARAMETER line="31" col="32">
+          <NAME line="31" col="32" value="Sender"/>
+          <TYPE line="31" col="40" name="TObject"/>
+        </PARAMETER>
+      </PARAMETERS>
+      <STATEMENTS begin_line="32" begin_col="1" end_line="41" end_col="4">
+        <FOR line="33" col="2">
+          <VARIABLES line="33" col="10">
+            <NAME line="33" col="10" value="i"/>
+          </VARIABLES>
+          <FROM line="33" col="15">
+            <EXPRESSION line="33" col="15">
+              <LITERAL line="33" col="15" value="0" type="numeric"/>
+            </EXPRESSION>
+          </FROM>
+          <TO line="33" col="17">
+            <EXPRESSION line="33" col="20">
+              <CALL line="33" col="20">
+                <IDENTIFIER line="33" col="20" name="Pred"/>
+                <EXPRESSIONS line="33" col="25">
+                  <EXPRESSION line="33" col="25">
+                    <IDENTIFIER line="33" col="25" name="ControlCount"/>
+                  </EXPRESSION>
+                </EXPRESSIONS>
+              </CALL>
+            </EXPRESSION>
+          </TO>
+          <STATEMENTS begin_line="34" begin_col="2" end_line="40" end_col="6">
+            <IF line="35" col="3">
+              <EXPRESSION line="35" col="6">
+                <IS line="35" col="18">
+                  <INDEXED line="35" col="14">
+                    <EXPRESSION line="35" col="15">
+                      <IDENTIFIER line="35" col="15" name="i"/>
+                    </EXPRESSION>
+                    <IDENTIFIER line="35" col="6" name="Controls"/>
+                  </INDEXED>
+                  <IDENTIFIER line="35" col="21" name="TPanel"/>
+                </IS>
+              </EXPRESSION>
+              <THEN line="35" col="28">
+                <STATEMENTS begin_line="36" begin_col="3" end_line="39" end_col="6">
+                  <IF line="37" col="4">
+                    <EXPRESSION line="37" col="7">
+                      <EQUAL line="37" col="33">
+                        <DOT line="37" col="26">
+                          <CALL line="37" col="7">
+                            <IDENTIFIER line="37" col="7" name="TPanel"/>
+                            <EXPRESSIONS line="37" col="14">
+                              <EXPRESSION line="37" col="14">
+                                <INDEXED line="37" col="22">
+                                  <EXPRESSION line="37" col="23">
+                                    <IDENTIFIER line="37" col="23" name="i"/>
+                                  </EXPRESSION>
+                                  <IDENTIFIER line="37" col="14" name="Controls"/>
+                                </INDEXED>
+                              </EXPRESSION>
+                            </EXPRESSIONS>
+                          </CALL>
+                          <IDENTIFIER line="37" col="27" name="Color"/>
+                        </DOT>
+                        <IDENTIFIER line="37" col="35" name="clBtnFace"/>
+                      </EQUAL>
+                    </EXPRESSION>
+                    <THEN line="37" col="45">
+                      <ASSIGN line="38" col="6">
+                        <LHS line="38" col="6">
+                          <DOT line="38" col="25">
+                            <CALL line="38" col="6">
+                              <IDENTIFIER line="38" col="6" name="TPanel"/>
+                              <EXPRESSIONS line="38" col="13">
+                                <EXPRESSION line="38" col="13">
+                                  <INDEXED line="38" col="21">
+                                    <EXPRESSION line="38" col="22">
+                                      <IDENTIFIER line="38" col="22" name="i"/>
+                                    </EXPRESSION>
+                                    <IDENTIFIER line="38" col="13" name="Controls"/>
+                                  </INDEXED>
+                                </EXPRESSION>
+                              </EXPRESSIONS>
+                            </CALL>
+                            <IDENTIFIER line="38" col="26" name="Color"/>
+                          </DOT>
+                        </LHS>
+                        <RHS line="38" col="35">
+                          <EXPRESSION line="38" col="35">
+                            <IDENTIFIER line="38" col="35" name="clGreen"/>
+                          </EXPRESSION>
+                        </RHS>
+                      </ASSIGN>
+                    </THEN>
+                  </IF>
+                </STATEMENTS>
+              </THEN>
+            </IF>
+          </STATEMENTS>
+        </FOR>
+      </STATEMENTS>
+    </METHOD>
+    <METHOD begin_line="43" begin_col="1" end_line="49" end_col="1" name="TForm31.FormCreate" kind="procedure">
+      <PARAMETERS line="43" col="29">
+        <PARAMETER line="43" col="30">
+          <NAME line="43" col="30" value="Sender"/>
+          <TYPE line="43" col="38" name="TObject"/>
+        </PARAMETER>
+      </PARAMETERS>
+      <STATEMENTS begin_line="44" begin_col="1" end_line="47" end_col="4">
+        <WITH line="45" col="2">
+          <EXPRESSIONS line="45" col="7">
+            <EXPRESSION line="45" col="7">
+              <IDENTIFIER line="45" col="7" name="Panel2"/>
+            </EXPRESSION>
+          </EXPRESSIONS>
+          <ASSIGN line="46" col="3">
+            <LHS line="46" col="3">
+              <IDENTIFIER line="46" col="3" name="color"/>
+            </LHS>
+            <RHS line="46" col="12">
+              <EXPRESSION line="46" col="12">
+                <IDENTIFIER line="46" col="12" name="clBlue"/>
+              </EXPRESSION>
+            </RHS>
+          </ASSIGN>
+        </WITH>
+      </STATEMENTS>
+    </METHOD>
+    <METHOD begin_line="49" begin_col="1" end_line="54" end_col="1" name="TForm31.FormShow" kind="procedure">
+      <PARAMETERS line="49" col="27">
+        <PARAMETER line="49" col="28">
+          <NAME line="49" col="28" value="Sender"/>
+          <TYPE line="49" col="36" name="TObject"/>
+        </PARAMETER>
+      </PARAMETERS>
+      <STATEMENTS begin_line="50" begin_col="1" end_line="52" end_col="4">
+        <ASSIGN line="51" col="3">
+          <LHS line="51" col="3">
+            <DOT line="51" col="9">
+              <IDENTIFIER line="51" col="3" name="Panel1"/>
+              <IDENTIFIER line="51" col="10" name="Color"/>
+            </DOT>
+          </LHS>
+          <RHS line="51" col="19">
+            <EXPRESSION line="51" col="19">
+              <IDENTIFIER line="51" col="19" name="clRed"/>
+            </EXPRESSION>
+          </RHS>
+        </ASSIGN>
+      </STATEMENTS>
+    </METHOD>
+  </IMPLEMENTATION>
+</UNIT>
