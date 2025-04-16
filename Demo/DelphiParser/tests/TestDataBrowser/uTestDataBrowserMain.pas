@@ -10,7 +10,7 @@ uses
   Data.DB, FireDAC.Comp.DataSet, FireDAC.Comp.Client, Vcl.Grids,
   Vcl.DBGrids, RzDBGrid, Vcl.DBCtrls, RzDBEdit, SynEdit, SynDBEdit,
   Vcl.ExtCtrls, RzPanel, RzSplit, SynEditCodeFolding, SynHighlighterPas,
-  SynEditHighlighter, SynHighlighterXML;
+  SynEditHighlighter, SynHighlighterXML, Vcl.Menus;
 
 type
   TForm32 = class(TForm)
@@ -20,16 +20,19 @@ type
   RzDBMemo2: TRzDBMemo;
   RzDBMemo3: TRzDBMemo;
     DBSynEdit1: TDBSynEdit;
-    SynEdit1: TSynEdit;
+    SynEdit1: TDBSynEdit;
     SynXMLSyn1: TSynXMLSyn;
-    SynPasSyn1: TSynPasSyn;
     RzSplitter1: TRzSplitter;
     RzSplitter2: TRzSplitter;
+    SynPasSyn1: TSynPasSyn;
+    PopupMenu1: TPopupMenu;
+    PopupMenu11: TMenuItem;
   procedure FormCreate(Sender: TObject);
-    procedure MemParseDataAfterScroll(DataSet: TDataSet);
     procedure DBSynEdit1Click(Sender: TObject);
     procedure DBSynEdit1KeyPress(Sender: TObject; var Key: Char);
+    procedure PopupMenu11Click(Sender: TObject);
   private
+    procedure ParseFile(Path, FileName: String);
   { Private declarations }
   public
   { Public declarations }
@@ -47,10 +50,13 @@ uses
 
 const
   CTestDataPath: array of string = [
+    '..\..\..\..\..\..\..\FindPropertyAssignments\Tests\TestFiles',
     '..\..\..\data',
     '..\..\..\..\..\..\source',
     '..\..\..\..\..\..\source\SimpleParser',
     '..\..\..\..\..\..\test\snippets'];
+  CTestDataMasks: array of string = [
+    '*.pas', '*.inc', '*.dpr'];
 
 procedure TForm32.DBSynEdit1Click(Sender: TObject);
 begin
@@ -62,42 +68,51 @@ begin
   Caption := DBSynEdit1.Lines[DBSynEdit1.CaretY-1];
 end;
 
+procedure TForm32.ParseFile(Path, FileName: String);
+begin
+  var parser := TParserCore.create();
+  try
+    var lines :=  TFile.ReadAllLines(FileName);
+    parser.UseStringInterning := True;
+    var status := parser.Parse(FileName);
+    var xmlLineCount := parser.XMLOutput.CountChar(#10) + 1;
+    MemParseData.AppendRecord([
+      TPath.GetFileName(fileName),
+      status,
+      String.Join(sLineBreak, lines),
+      parser.XMLOutput,
+      parser.Comments,
+      parser.Errors,
+      parser.ParseTime,
+      parser.MemoryUsage,
+      path,
+      TPath.GetFileName(path),
+      Length(Lines), 
+      xmlLineCount]);
+  finally
+    parser.Free;
+  end;
+end;
+
+procedure TForm32.PopupMenu11Click(Sender: TObject);
+begin
+ var sourceFile := TPath.Combine(MemParseData.FieldByName('path').AsWideString, MemParseData.FieldByName('DataFileName').AsWideString);
+ var astfile := TPath.ChangeExtension(sourcefile, '.ast');
+ TFile.WriteAllText(astFile, MemParseData.FieldByName('AstXML').AsWideString);
+
+end;
+
 procedure TForm32.FormCreate(Sender: TObject);
 begin
   for var path in CTestDataPath do
   begin
-
-    for var FileName in TDirectory.GetFiles(path, '*.*') do
+    for var mask in CTestDataMasks do
     begin
-      var parser := TParserCore.create();
-      try
-        parser.UseStringInterning := True;
-        var status := parser.Parse(FileName);
-        MemParseData.AppendRecord([
-          TPath.GetFileName(fileName),
-          status,
-          parser.XMLOutput,
-          parser.Comments,
-          parser.Errors,
-          parser.ParseTime,
-          parser.MemoryUsage,
-          path,
-          TPath.GetFileName(path)]);
-      finally
-        parser.Free;
-      end;
-
+      for var FileName in TDirectory.GetFiles(path, mask) do
+        ParseFile(path, FileName);
     end;
   end;
-
-end;
-
-procedure TForm32.MemParseDataAfterScroll(DataSet: TDataSet);
-begin
-  SynEdit1.Lines.LoadFromFile(
-    TPath.Combine(
-      MemParseData.Fields[7].AsString,
-      MemParseData.Fields[0].AsString));
+  MemParseData.First;
 end;
 
 end.

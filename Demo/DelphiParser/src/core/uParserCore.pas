@@ -11,7 +11,7 @@ uses
 type
   TParserCore = class
   private
-  FXMLOutput: string;
+    FXMLOutput: string;
     FComments: TStrings;
     FErrors: string;
     FParseTime: Int64;
