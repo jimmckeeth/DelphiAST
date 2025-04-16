@@ -5,9 +5,9 @@ object Form32: TForm32
   Margins.Top = 5
   Margins.Right = 5
   Margins.Bottom = 5
-  Caption = 'Form32'
-  ClientHeight = 664
-  ClientWidth = 1241
+  Caption = 'AST Browser'
+  ClientHeight = 743
+  ClientWidth = 1415
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -20,25 +20,27 @@ object Form32: TForm32
   object RzSplitter1: TRzSplitter
     Left = 0
     Top = 0
-    Width = 1241
-    Height = 664
+    Width = 1415
+    Height = 743
     Margins.Left = 5
     Margins.Top = 5
     Margins.Right = 5
     Margins.Bottom = 5
-    Position = 504
-    Percent = 41
+    Position = 490
+    Percent = 35
     UpperLeft.Color = 15987699
     LowerRight.Color = 15987699
     SplitterWidth = 6
     Align = alClient
     Color = 15987699
     TabOrder = 0
+    ExplicitWidth = 1241
+    ExplicitHeight = 664
     BarSize = (
-      504
+      490
       0
-      510
-      664)
+      496
+      743)
     UpperLeftControls = (
       RzDBGrid1)
     LowerRightControls = (
@@ -46,8 +48,8 @@ object Form32: TForm32
     object RzDBGrid1: TRzDBGrid
       Left = 0
       Top = 0
-      Width = 504
-      Height = 664
+      Width = 490
+      Height = 743
       Margins.Left = 5
       Margins.Top = 5
       Margins.Right = 5
@@ -61,6 +63,7 @@ object Form32: TForm32
       Font.Style = []
       Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
       ParentFont = False
+      PopupMenu = PopupMenu1
       ReadOnly = True
       TabOrder = 0
       TitleFont.Charset = DEFAULT_CHARSET
@@ -71,6 +74,13 @@ object Form32: TForm32
       FrameVisible = True
       AltRowShading = True
       Columns = <
+        item
+          Expanded = False
+          FieldName = 'Friendly'
+          Title.Caption = 'Set'
+          Width = 88
+          Visible = True
+        end
         item
           Expanded = False
           FieldName = 'DataFileName'
@@ -88,38 +98,31 @@ object Form32: TForm32
         end
         item
           Expanded = False
-          FieldName = 'ParseTime'
+          FieldName = 'SourceLineCnt'
           Title.Alignment = taCenter
-          Title.Caption = 'ms'
-          Width = 50
+          Title.Caption = 'Source'
+          Width = 60
           Visible = True
         end
         item
           Expanded = False
-          FieldName = 'MemoryUsed'
+          FieldName = 'AstLineCouint'
           Title.Alignment = taCenter
-          Title.Caption = 'kb'
-          Width = 50
-          Visible = True
-        end
-        item
-          Expanded = False
-          FieldName = 'Friendly'
-          Title.Caption = 'Set'
-          Width = 88
+          Title.Caption = 'AST'
+          Width = 60
           Visible = True
         end>
     end
     object RzSplitter2: TRzSplitter
       Left = 0
       Top = 0
-      Width = 731
-      Height = 664
+      Width = 919
+      Height = 743
       Margins.Left = 5
       Margins.Top = 5
       Margins.Right = 5
       Margins.Bottom = 5
-      Position = 339
+      Position = 431
       Percent = 47
       UsePercent = True
       RealTimeDrag = True
@@ -129,11 +132,13 @@ object Form32: TForm32
       Align = alClient
       Color = 15987699
       TabOrder = 0
+      ExplicitWidth = 731
+      ExplicitHeight = 664
       BarSize = (
-        339
+        431
         0
-        345
-        664)
+        437
+        743)
       UpperLeftControls = (
         DBSynEdit1
         RzDBMemo2)
@@ -143,8 +148,8 @@ object Form32: TForm32
       object DBSynEdit1: TDBSynEdit
         Left = 0
         Top = 0
-        Width = 339
-        Height = 540
+        Width = 431
+        Height = 619
         Cursor = crIBeam
         Margins.Left = 5
         Margins.Top = 5
@@ -197,11 +202,14 @@ object Form32: TForm32
         ReadOnly = True
         RightEdge = 0
         SelectedColor.Alpha = 0.400000005960464500
+        ExplicitLeft = -4
+        ExplicitTop = -10
+        ExplicitHeight = 830
       end
       object RzDBMemo2: TRzDBMemo
         Left = 0
-        Top = 540
-        Width = 339
+        Top = 619
+        Width = 431
         Height = 124
         Margins.Left = 5
         Margins.Top = 5
@@ -211,11 +219,13 @@ object Form32: TForm32
         DataField = 'Comments'
         DataSource = DataSource1
         TabOrder = 1
+        ExplicitTop = 540
+        ExplicitWidth = 342
       end
       object RzDBMemo3: TRzDBMemo
         Left = 0
-        Top = 540
-        Width = 386
+        Top = 619
+        Width = 482
         Height = 124
         Margins.Left = 5
         Margins.Top = 5
@@ -225,16 +235,21 @@ object Form32: TForm32
         DataField = 'Errors'
         DataSource = DataSource1
         TabOrder = 0
+        ExplicitTop = 540
+        ExplicitWidth = 383
       end
-      object SynEdit1: TSynEdit
+      object SynEdit1: TDBSynEdit
         Left = 0
         Top = 0
-        Width = 386
-        Height = 540
+        Width = 482
+        Height = 619
+        Cursor = crIBeam
         Margins.Left = 5
         Margins.Top = 5
         Margins.Right = 5
         Margins.Bottom = 5
+        DataField = 'Source'
+        DataSource = DataSource1
         Align = alClient
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
@@ -242,8 +257,9 @@ object Form32: TForm32
         Font.Name = 'Hack'
         Font.Style = []
         Font.Quality = fqClearTypeNatural
+        ParentColor = False
+        ParentFont = False
         TabOrder = 1
-        UseCodeFolding = False
         BookMarkOptions.LeftMargin = 3
         BookMarkOptions.Xoffset = 18
         ExtraLineSpacing = 3
@@ -273,17 +289,18 @@ object Form32: TForm32
             Width = 3
           end>
         Highlighter = SynPasSyn1
-        Lines.Strings = (
-          'SynEdit1')
         ReadOnly = True
         RightEdge = 0
         SelectedColor.Alpha = 0.400000005960464500
+        ExplicitLeft = 4
+        ExplicitTop = -10
+        ExplicitWidth = 383
+        ExplicitHeight = 540
       end
     end
   end
   object MemParseData: TFDMemTable
     Active = True
-    AfterScroll = MemParseDataAfterScroll
     FieldDefs = <
       item
         Name = 'DataFileName'
@@ -294,6 +311,10 @@ object Form32: TForm32
       item
         Name = 'ParseStatus'
         DataType = ftBoolean
+      end
+      item
+        Name = 'Source'
+        DataType = ftWideMemo
       end
       item
         Name = 'AstXml'
@@ -325,6 +346,14 @@ object Form32: TForm32
         Name = 'Friendly'
         DataType = ftWideString
         Size = 1024
+      end
+      item
+        Name = 'SourceLineCnt'
+        DataType = ftLongWord
+      end
+      item
+        Name = 'AstLineCouint'
+        DataType = ftLongWord
       end>
     IndexDefs = <>
     FetchOptions.AssignedValues = [evMode]
@@ -345,11 +374,19 @@ object Form32: TForm32
   end
   object SynXMLSyn1: TSynXMLSyn
     WantBracesParsed = False
-    Left = 672
-    Top = 276
+    Left = 696
+    Top = 342
   end
   object SynPasSyn1: TSynPasSyn
-    Left = 972
-    Top = 264
+    Left = 1164
+    Top = 336
+  end
+  object PopupMenu1: TPopupMenu
+    Left = 180
+    Top = 132
+    object PopupMenu11: TMenuItem
+      Caption = 'save'
+      OnClick = PopupMenu11Click
+    end
   end
 end

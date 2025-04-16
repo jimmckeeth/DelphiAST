@@ -1,4 +1,4 @@
-unit uMainForm;
+﻿unit uMainForm;
 
 {$include ..\utils\defines.inc}
 

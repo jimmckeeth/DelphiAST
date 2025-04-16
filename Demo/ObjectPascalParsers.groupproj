@@ -18,6 +18,9 @@
         <Projects Include="DelphiParser\tests\TestDataBrowser\TestDataBrowser.dproj">
             <Dependencies/>
         </Projects>
+        <Projects Include="AstTree\AstTree.dproj">
+            <Dependencies/>
+        </Projects>
     </ItemGroup>
     <ProjectExtensions>
         <Borland.Personality>Default.Personality.12</Borland.Personality>
@@ -71,14 +74,23 @@
     <Target Name="TestDataBrowser:Make">
         <MSBuild Projects="DelphiParser\tests\TestDataBrowser\TestDataBrowser.dproj" Targets="Make"/>
     </Target>
+    <Target Name="AstTree">
+        <MSBuild Projects="AstTree\AstTree.dproj"/>
+    </Target>
+    <Target Name="AstTree:Clean">
+        <MSBuild Projects="AstTree\AstTree.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="AstTree:Make">
+        <MSBuild Projects="AstTree\AstTree.dproj" Targets="Make"/>
+    </Target>
     <Target Name="Build">
-        <CallTarget Targets="ParserVCL;ParserCLI;ParserDemo;ParserTests;TestDataBrowser"/>
+        <CallTarget Targets="ParserVCL;ParserCLI;ParserDemo;ParserTests;TestDataBrowser;AstTree"/>
     </Target>
     <Target Name="Clean">
-        <CallTarget Targets="ParserVCL:Clean;ParserCLI:Clean;ParserDemo:Clean;ParserTests:Clean;TestDataBrowser:Clean"/>
+        <CallTarget Targets="ParserVCL:Clean;ParserCLI:Clean;ParserDemo:Clean;ParserTests:Clean;TestDataBrowser:Clean;AstTree:Clean"/>
     </Target>
     <Target Name="Make">
-        <CallTarget Targets="ParserVCL:Make;ParserCLI:Make;ParserDemo:Make;ParserTests:Make;TestDataBrowser:Make"/>
+        <CallTarget Targets="ParserVCL:Make;ParserCLI:Make;ParserDemo:Make;ParserTests:Make;TestDataBrowser:Make;AstTree:Make"/>
     </Target>
     <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
 </Project>
