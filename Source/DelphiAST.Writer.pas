@@ -16,7 +16,7 @@ type
       const Node: TSyntaxNode; Formatted: Boolean); static;
   public
     class function ToXML(const Root: TSyntaxNode;
-      Formatted: Boolean = False): string; static;
+      Formatted: Boolean = False; Header: Boolean = True): string; static;
 
     {$IFNDEF FPC}
       class function ToBinary(const Root: TSyntaxNode; Stream: TStream): Boolean; static;
@@ -140,14 +140,17 @@ end;
 {$ENDIF}
 
 class function TSyntaxTreeWriter.ToXML(const Root: TSyntaxNode;
-  Formatted: Boolean): string;
+  Formatted: Boolean; Header: Boolean): string;
 var
   Builder: TStringBuilder;
 begin
   Builder := TStringBuilder.Create;
   try
     NodeToXml(Builder, Root, Formatted);
-    Result := '<?xml version="1.0"?>' + sLineBreak + Builder.ToString;
+    if Header then
+      Result := '<?xml version="1.0"?>' + sLineBreak + Builder.ToString
+    else
+      Result := Builder.ToString
   finally
     Builder.Free;
   end;
