@@ -130,6 +130,7 @@ type
     FScopedEnums: Boolean;
     FIncludeHandler: IIncludeHandler;
     FOnComment: TCommentEvent;
+    FLineSeq: Integer;
 
     function KeyHash: Integer;
     function KeyComp(const aKey: string): Boolean;
@@ -209,6 +210,7 @@ type
     function Func112: TptTokenKind;
     function Func117: TptTokenKind;
     function Func123: TptTokenKind;
+    function Func125: TptTokenKind;
     function Func126: TptTokenKind;
     function Func127: TptTokenKind;
     function Func128: TptTokenKind;
@@ -559,6 +561,7 @@ begin
       112: FIdentFuncTable[I] := Func112;
       117: FIdentFuncTable[I] := Func117;
       123: FIdentFuncTable[I] := Func123;
+      125: FIdentFuncTable[I] := Func125;
       126: FIdentFuncTable[I] := Func126;
       127: FIdentFuncTable[I] := Func127;
       128: FIdentFuncTable[I] := Func128;
@@ -1138,6 +1141,12 @@ begin
   if KeyComp('Shortint') then FExID := ptShortint;
 end;
 
+function TmwBasePasLex.Func125: TptTokenKind;
+begin
+  Result := ptIdentifier;
+  if KeyComp('noreturn') then FExID := ptNoreturn;
+end;
+
 function TmwBasePasLex.Func126: TptTokenKind;
 begin
   Result := ptIdentifier;
@@ -1473,12 +1482,14 @@ begin
         end;
       #10:
         begin
+          Inc(FLineSeq);
           Inc(FBuffer.Run);
           Inc(FBuffer.LineNumber);
           FBuffer.LinePos := FBuffer.Run;
         end;
       #13:
         begin
+          Inc(FLineSeq);
           Inc(FBuffer.Run);
           if FBuffer.Buf[FBuffer.Run] = #10 then Inc(FBuffer.Run);
           Inc(FBuffer.LineNumber);
@@ -1521,12 +1532,14 @@ begin
         end;
       #10:
         begin
+          Inc(FLineSeq);
           Inc(FBuffer.Run);
           Inc(FBuffer.LineNumber);
           FBuffer.LinePos := FBuffer.Run;
         end;
       #13:
         begin
+          Inc(FLineSeq);
           Inc(FBuffer.Run);
           if FBuffer.Buf[FBuffer.Run] = #10 then Inc(FBuffer.Run);
           Inc(FBuffer.LineNumber);
@@ -1829,6 +1842,7 @@ begin
   else
     Inc(FBuffer.Run);
   end;
+  Inc(FLineSeq);
   Inc(FBuffer.LineNumber);
   FBuffer.LinePos := FBuffer.Run;
 end;
@@ -1933,6 +1947,7 @@ begin
   else
     FTokenID := ptCRLF;
   end;
+  Inc(FLineSeq);
   Inc(FBuffer.Run);
   Inc(FBuffer.LineNumber);
   FBuffer.LinePos := FBuffer.Run;
@@ -2103,12 +2118,14 @@ begin
         else Inc(FBuffer.Run);
       #10:
         begin
+          Inc(FLineSeq);
           Inc(FBuffer.Run);
           Inc(FBuffer.LineNumber);
           FBuffer.LinePos := FBuffer.Run;
         end;
       #13:
         begin
+          Inc(FLineSeq);
           Inc(FBuffer.Run);
           if FBuffer.Buf[FBuffer.Run] = #10 then Inc(FBuffer.Run);
           Inc(FBuffer.LineNumber);
@@ -2154,12 +2171,14 @@ begin
                 Inc(FBuffer.Run);
             #10:
               begin
+                Inc(FLineSeq);
                 Inc(FBuffer.Run);
                 Inc(FBuffer.LineNumber);
                 FBuffer.LinePos := FBuffer.Run;
               end;
             #13:
               begin
+                Inc(FLineSeq);
                 Inc(FBuffer.Run);
                 if FBuffer.Buf[FBuffer.Run] = #10 then Inc(FBuffer.Run);
                 Inc(FBuffer.LineNumber);
@@ -2335,6 +2354,7 @@ begin
         #10:
           begin
             NewLine := True;
+            Inc(FLineSeq);
             Inc(FBuffer.Run);
             Inc(FBuffer.LineNumber);
             FBuffer.LinePos := FBuffer.Run;
@@ -2342,6 +2362,7 @@ begin
         #13:
           begin
             NewLine := True;
+            Inc(FLineSeq);
             Inc(FBuffer.Run);
             if FBuffer.Buf[FBuffer.Run] = #10 then Inc(FBuffer.Run);
             Inc(FBuffer.LineNumber);
@@ -2693,6 +2714,7 @@ begin
   FBuffer.LineNumber := 0;
   FBuffer.LinePos := 0;
   FBuffer.Run := 0;
+  FLineSeq := 0;
 end;
 
 procedure TmwBasePasLex.InitFrom(ALexer: TmwBasePasLex);
