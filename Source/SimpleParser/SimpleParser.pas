@@ -4382,7 +4382,7 @@ begin
   begin
     NextToken;
     if TokenID = ptRoundOpen then
-      SimpleExpression
+      ConstantExpression
     else
       RecordAlignValue;
   end;
