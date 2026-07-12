@@ -2649,7 +2649,7 @@ begin {removed ptIntegerConst jdj-Put back in for labels}
   while TokenID in [ptAddressOp, ptAsm, ptBegin, ptCase, ptConst, ptDoubleAddressOp,
     ptFor, ptGoTo, ptIdentifier, ptIf, ptInherited, ptInline, ptIntegerConst,
     ptPointerSymbol, ptRaise, ptRoundOpen, ptRepeat, ptSemiColon, ptString,
-    ptTry, ptVar, ptWhile, ptWith] do
+    ptStringConst, ptTry, ptVar, ptWhile, ptWith] do
   begin
     Statement;
     Semicolon;
@@ -2732,6 +2732,10 @@ begin
             begin
               LabeledStatement;
             end;
+          ptPoint:
+            begin
+              Expression;
+            end
         else
           begin
             SynError(InvalidLabeledStatement);
@@ -2750,6 +2754,11 @@ begin
     ptSemiColon:
       begin
         EmptyStatement;
+      end;
+    ptStringConst:
+      begin
+        FLexer.InitAhead;
+        Expression;
       end;
     ptTry:
       begin

@@ -2005,8 +2005,11 @@ begin
       '.':
         if FBuffer.Buf[FBuffer.Run + 1] = '.' then
           Break
-        else
+        else if CharInSet(FBuffer.Buf[FBuffer.Run + 1], ['0'..'9']) then
           FTokenID := ptFloat
+        else
+          Break;
+
     end;
     Inc(FBuffer.Run);
   end;
