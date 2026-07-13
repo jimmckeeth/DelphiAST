@@ -12,18 +12,13 @@ This branch has merged and validated these open pull requests from `RomanYankovs
 - [PR #268](https://github.com/RomanYankovsky/DelphiAST/pull/268), "Helper method calls on literals don't cause parser errors anymore", from `Wosi:LiteralHelpers` by [Wosi](https://github.com/Wosi).
 - [PR #231](https://github.com/RomanYankovsky/DelphiAST/pull/231), "Suggested fixes for most of the issues I reported", from `JBontes:master` by [JBontes](https://github.com/JBontes).
 
-The active forks were also reviewed:
 
-- [UweRaabe/DelphiAST](https://github.com/UweRaabe/DelphiAST): PR branches above were merged, and `Fix_anon_method_stdcall` was also merged for anonymous method declarations with calling conventions.
-- [sglienke/DelphiAST](https://github.com/sglienke/DelphiAST): reviewed for Delphi 13 compiler defines; the current branch already includes a broader Delphi 13 define block.
-- [VSoftTechnologies/DelphiAST](https://github.com/VSoftTechnologies/DelphiAST): reviewed; unique changes are DPM/package publishing metadata, not parser behavior, so they were not merged here.
-
-Validation was run with `DelphiBuildDPROJ.ps1` against `Test/DelphiASTTest.dproj` on Delphi 13.1 (`37.0`) and Delphi 12.2 (`23.0`), Win32 Debug.
-
-# Abstract Syntax Tree (AST) Builder for Object Pascal
 [<img src="https://raw.githubusercontent.com/jimmckeeth/DelphiAST/refs/heads/master/Graphics/ObjectPascalAST.png" align="right" width="250">](https://github.com/jimmckeeth/DelphiAST/)
 
-With [DelphiAST](https://github.com/jimmckeeth/DelphiAST/) you can take real Delphi code and get an abstract syntax tree. One unit at time and without a symbol table though. 
+# Abstract Syntax Tree (AST) Builder for Object Pascal
+
+
+With DelphiAST you can take real Delphi code and get an abstract syntax tree. One unit at time and without a symbol table though. 
 
 Compatible with [Delphi](https://www.embarcadero.com/products/delphi), [FreePascal](https://www.freepascal.org/), & [Lazarus](https://www.lazarus-ide.org/).
 
@@ -109,6 +104,6 @@ end.
 #### Copyright
 Copyright (c) 2014-2020 Roman Yankovsky (roman@yankovsky.me) et al
 
-DelphiAST is released under the Mozilla Public License, v. 2.0
+DelphiAST is released under the [Mozilla Public License, v. 2.0](https://www.mozilla.org/en-US/MPL/2.0/)
 
-See LICENSE for details.
+See [LICENSE](LICENSE.md) for details.
