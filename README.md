@@ -1,6 +1,24 @@
 [![](https://tokei.rs/b1/github/jimmckeeth/DelphiAST?category=lines)](https://github.com/jimmckeeth/DelphiAST) [![](https://tokei.rs/b1/github/jimmckeeth/DelphiAST?category=code)](https://github.com/jimmckeeth/DelphiAST) [![](https://tokei.rs/b1/github/jimmckeeth/DelphiAST?category=files)](https://github.com/jimmckeeth/DelphiAST)
 
-**Update:** This is a fork of [Roman Yankovsky's original](https://github.com/RomanYankovsky/DelphiAST), pulling in changes from [other forks](https://github.com/RomanYankovsky/DelphiAST/network). I wll review the exising [pull requests](https://github.com/RomanYankovsky/DelphiAST/pulls) and am accepting [new ones here](https://github.com/jimmckeeth/DelphiAST/pulls).
+**Update:** This is a maintained fork of [Roman Yankovsky's original](https://github.com/RomanYankovsky/DelphiAST), intended to collect useful fixes from open upstream pull requests and active forks while upstream review is quiet. New pull requests are welcome [here](https://github.com/jimmckeeth/DelphiAST/pulls).
+
+## Integrated upstream and fork work
+
+This branch has merged and validated these open pull requests from `RomanYankovsky/DelphiAST`:
+
+- [PR #341](https://github.com/RomanYankovsky/DelphiAST/pull/341), "Fix parsing expression after record align", from `UweRaabe:Fix_RecordAlign_with_value_expression` by [UweRaabe](https://github.com/UweRaabe).
+- [PR #337](https://github.com/RomanYankovsky/DelphiAST/pull/337), "Fix Multiline parsing error #336", from `UweRaabe:Fix_Multiline_parsing_error_#336` by [UweRaabe](https://github.com/UweRaabe).
+- [PR #313](https://github.com/RomanYankovsky/DelphiAST/pull/313), "Log encoding errors as problems", from `luebbe:master` by [luebbe](https://github.com/luebbe).
+- [PR #268](https://github.com/RomanYankovsky/DelphiAST/pull/268), "Helper method calls on literals don't cause parser errors anymore", from `Wosi:LiteralHelpers` by [Wosi](https://github.com/Wosi).
+- [PR #231](https://github.com/RomanYankovsky/DelphiAST/pull/231), "Suggested fixes for most of the issues I reported", from `JBontes:master` by [JBontes](https://github.com/JBontes).
+
+The active forks were also reviewed:
+
+- [UweRaabe/DelphiAST](https://github.com/UweRaabe/DelphiAST): PR branches above were merged, and `Fix_anon_method_stdcall` was also merged for anonymous method declarations with calling conventions.
+- [sglienke/DelphiAST](https://github.com/sglienke/DelphiAST): reviewed for Delphi 13 compiler defines; the current branch already includes a broader Delphi 13 define block.
+- [VSoftTechnologies/DelphiAST](https://github.com/VSoftTechnologies/DelphiAST): reviewed; unique changes are DPM/package publishing metadata, not parser behavior, so they were not merged here.
+
+Validation was run with `DelphiBuildDPROJ.ps1` against `Test/DelphiASTTest.dproj` on Delphi 13.1 (`37.0`) and Delphi 12.2 (`23.0`), Win32 Debug.
 
 # Abstract Syntax Tree (AST) Builder for Object Pascal
 [<img src="https://raw.githubusercontent.com/jimmckeeth/DelphiAST/refs/heads/master/Graphics/ObjectPascalAST.png" align="right" width="250">](https://github.com/jimmckeeth/DelphiAST/)
