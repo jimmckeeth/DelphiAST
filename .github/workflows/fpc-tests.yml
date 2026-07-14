@@ -1,0 +1,36 @@
+name: FPC tests
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Install Free Pascal
+        run: sudo apt-get update && sudo apt-get install --no-install-recommends fp-compiler fp-units-fcl
+
+      - name: Compile tests
+        run: |
+          mkdir -p build/fpc-tests/units
+          fpc -B -Mdelphi \
+            -FuSource \
+            -FuSource/SimpleParser \
+            -FiSource/SimpleParser \
+            -FuSource/FreePascalSupport \
+            -FuSource/FreePascalSupport/FPC_StringBuilder/Src \
+            -FuTest/UnitTests \
+            -FUbuild/fpc-tests/units \
+            -FEbuild/fpc-tests \
+            Test/UnitTests/DelphiASTTests.lpr
+
+      - name: Run tests
+        run: build/fpc-tests/DelphiASTTests Test/Snippets

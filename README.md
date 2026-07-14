@@ -1,4 +1,4 @@
-[![](https://tokei.rs/b1/github/jimmckeeth/DelphiAST?category=lines)](https://github.com/jimmckeeth/DelphiAST) [![](https://tokei.rs/b1/github/jimmckeeth/DelphiAST?category=code)](https://github.com/jimmckeeth/DelphiAST) [![](https://tokei.rs/b1/github/jimmckeeth/DelphiAST?category=files)](https://github.com/jimmckeeth/DelphiAST)
+[![Total lines](https://www.aschey.tech/tokei/github/jimmckeeth/DelphiAST?category=lines)](https://github.com/jimmckeeth/DelphiAST) [![Lines of code](https://www.aschey.tech/tokei/github/jimmckeeth/DelphiAST?category=code)](https://github.com/jimmckeeth/DelphiAST) [![Source files](https://www.aschey.tech/tokei/github/jimmckeeth/DelphiAST?category=files)](https://github.com/jimmckeeth/DelphiAST)
 
 **Update:** This is a maintained fork of [Roman Yankovsky's original](https://github.com/RomanYankovsky/DelphiAST), intended to collect useful fixes from open upstream pull requests and active forks while upstream review is quiet. New pull requests are welcome [here](https://github.com/jimmckeeth/DelphiAST/pulls).
 
@@ -21,6 +21,30 @@ This branch has merged and validated these open pull requests from `RomanYankovs
 With DelphiAST you can take real Delphi code and get an abstract syntax tree. One unit at time and without a symbol table though. 
 
 Compatible with [Delphi](https://www.embarcadero.com/products/delphi), [FreePascal](https://www.freepascal.org/), & [Lazarus](https://www.lazarus-ide.org/).
+
+## Tests
+
+The headless suite runs the same shared tests with separate Delphi and FPC console
+projects. It parses every file in `Test/Snippets` and performs focused assertions
+against parser behavior, AST structure, error handling, source positions, and XML
+output.
+
+With FPC installed, compile and run the suite from the repository root:
+
+```bash
+mkdir -p build/fpc-tests/units
+fpc -B -Mdelphi \
+  -FuSource -FuSource/SimpleParser -FiSource/SimpleParser \
+  -FuSource/FreePascalSupport \
+  -FuSource/FreePascalSupport/FPC_StringBuilder/Src \
+  -FuTest/UnitTests -FUbuild/fpc-tests/units -FEbuild/fpc-tests \
+  Test/UnitTests/DelphiASTTests.lpr
+build/fpc-tests/DelphiASTTests Test/Snippets
+```
+
+For Delphi, build `Test/UnitTests/DelphiASTTests.dproj` and pass the path to
+`Test/Snippets` as the executable's first argument. The original interactive test
+application remains available under `Test/GUI`.
 
 ## Sample input
 ```delphi

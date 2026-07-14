@@ -721,7 +721,8 @@ var
 begin
   Encoding := nil;
   SetLength(Bytes, Self.Size);
-  Bytes := BytesOf(DataString);
+  if Self.Size > 0 then
+    Move(Self.Memory^, Bytes[0], Self.Size);
   TEncoding.GetBufferEncoding(Bytes, Encoding);
   Result := Encoding.GetString(Bytes, Length(Encoding.GetPreamble), Size);
 {$ENDIF}
@@ -4441,10 +4442,10 @@ begin
   if ExID = ptAlign then
   begin
     NextToken;
-    if TokenID = ptRoundOpen then
-      ConstantExpression
+    if TokenID = ptIntegerConst then
+      RecordAlignValue
     else
-      RecordAlignValue;
+      ConstantExpression;
   end;
 end;
 

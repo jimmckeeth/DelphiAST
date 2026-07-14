@@ -82,7 +82,7 @@ class procedure TSyntaxTreeWriter.NodeToXML(const Builder: TStringBuilder;
       NewIndent := Indent + '  ';
       Builder.Append(Indent);
     end;
-    Builder.Append('<' + UpperCase(SyntaxNodeNames[Node.Typ]));
+    Builder.Append('<' + UpperCase(SyntaxNodeNames.Items[Node.Typ]));
 
     Builder.Append('  line_seq="' + IntToStr(Node.LineSeq) + '"');
 
@@ -118,7 +118,7 @@ class procedure TSyntaxTreeWriter.NodeToXML(const Builder: TStringBuilder;
     begin
       if Formatted then
         Builder.Append(Indent);
-      Builder.Append('</' + UpperCase(SyntaxNodeNames[Node.Typ]) + '>');
+      Builder.Append('</' + UpperCase(SyntaxNodeNames.Items[Node.Typ]) + '>');
       if Formatted then
         Builder.AppendLine;
     end;
