@@ -14,6 +14,8 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
+        with:
+          submodules: recursive
 
       - name: Install Free Pascal
         run: sudo apt-get update && sudo apt-get install --no-install-recommends fp-compiler fp-units-fcl

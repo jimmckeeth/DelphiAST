@@ -1,5 +1,7 @@
 [![Total lines](https://www.aschey.tech/tokei/github/jimmckeeth/DelphiAST?category=lines)](https://github.com/jimmckeeth/DelphiAST) [![Lines of code](https://www.aschey.tech/tokei/github/jimmckeeth/DelphiAST?category=code)](https://github.com/jimmckeeth/DelphiAST) [![Source files](https://www.aschey.tech/tokei/github/jimmckeeth/DelphiAST?category=files)](https://github.com/jimmckeeth/DelphiAST)
 
+[![FPC tests](https://github.com/jimmckeeth/DelphiAST/actions/workflows/fpc-tests.yml/badge.svg)](https://github.com/jimmckeeth/DelphiAST/actions/workflows/fpc-tests.yml) ![Test results: 41 passing, 0 failing](https://img.shields.io/badge/tests-41%20passing%20%C2%B7%200%20failing-brightgreen)
+
 **Update:** This is a maintained fork of [Roman Yankovsky's original](https://github.com/RomanYankovsky/DelphiAST), intended to collect useful fixes from open upstream pull requests and active forks while upstream review is quiet. New pull requests are welcome [here](https://github.com/jimmckeeth/DelphiAST/pulls).
 
 ## Integrated upstream and fork work
