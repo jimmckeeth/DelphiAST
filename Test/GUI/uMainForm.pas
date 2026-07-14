@@ -50,7 +50,8 @@ var
 begin
   memLog.Clear;
 
-  Path := ExtractFilePath(Application.ExeName) + 'Snippets\';
+  Path := ExpandFileName(ExtractFilePath(Application.ExeName) + '..' +
+    PathDelim + 'Snippets');
   if not SelectDirectory('Select Folder', '', Path) then
     Exit;
 

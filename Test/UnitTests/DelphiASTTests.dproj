@@ -1,0 +1,24 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{BE6F065D-472C-4D09-9799-14BA15600EBB}</ProjectGuid>
+    <ProjectVersion>20.3</ProjectVersion>
+    <FrameworkType>None</FrameworkType>
+    <Base>True</Base>
+    <Config Condition="'$(Config)'==''">Debug</Config>
+    <Platform Condition="'$(Platform)'==''">Win32</Platform>
+    <TargetedPlatforms>1</TargetedPlatforms>
+    <AppType>Console</AppType>
+    <MainSource>DelphiASTTests.dpr</MainSource>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Base)'!=''">
+    <DCC_UnitSearchPath>..\..\Source;..\..\Source\SimpleParser;..\..\Source\FreePascalSupport;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
+    <DCC_Namespace>System;Xml;Data;$(DCC_Namespace)</DCC_Namespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <DelphiCompile Include="$(MainSource)"><MainSource>MainSource</MainSource></DelphiCompile>
+    <DCCReference Include="DelphiAST.Tests.pas"/>
+    <DCCReference Include="DelphiAST.TestFramework.pas"/>
+    <DCCReference Include="DelphiAST.TestSupport.pas"/>
+  </ItemGroup>
+  <Import Project="$(BDS)\Bin\CodeGear.Delphi.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Delphi.Targets')"/>
+</Project>

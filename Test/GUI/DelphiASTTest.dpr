@@ -2,8 +2,7 @@ program DelphiASTTest;
 
 uses
   Vcl.Forms,
-  uMainForm in 'uMainForm.pas' {Form2},
-  forwardwithoutsemicolon in 'Snippets\forwardwithoutsemicolon.pas';
+  uMainForm in 'uMainForm.pas' {Form2};
 
 {$R *.res}
 
