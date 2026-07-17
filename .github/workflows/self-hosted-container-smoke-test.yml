@@ -5,12 +5,7 @@ on:
 
 jobs:
   compile-in-container:
-    runs-on: [self-hosted, windows, delphi, container]
-    container:
-      image: delphi-builder:12-athens
-      volumes:
-        - 'C:\Program Files (x86)\Embarcadero:C:\Program Files (x86)\Embarcadero:ro'
-        - 'C:\Users\Public\Documents\Embarcadero:C:\Users\Public\Documents\Embarcadero:ro'
+    runs-on: [self-hosted, windows, delphi]
     steps:
       - name: Write a trivial Delphi program
         shell: cmd
@@ -21,14 +16,22 @@ jobs:
           echo   WriteLn('Hello from a process-isolated container'^); >> Hello.dpr
           echo end. >> Hello.dpr
 
-      - name: Compile with dcc64
-        shell: cmd
-        run: dcc64.exe Hello.dpr
+      - name: Compile and run inside a process-isolated container
+        shell: pwsh
+        run: |
+          docker run --rm --isolation process `
+            -v "${{ github.workspace }}:C:\work" `
+            -v "C:\Program Files (x86)\Embarcadero:C:\Program Files (x86)\Embarcadero:ro" `
+            -v "C:\Users\Public\Documents\Embarcadero:C:\Users\Public\Documents\Embarcadero:ro" `
+            -w C:\work `
+            delphi-builder:12-athens `
+            cmd /c "dcc64.exe Hello.dpr && Hello.exe && echo this container is ephemeral > C:\marker.txt && dir C:\marker.txt"
+          if ($LASTEXITCODE -ne 0) { throw "container build failed with exit code $LASTEXITCODE" }
 
-      - name: Run the compiled binary
-        shell: cmd
-        run: Hello.exe
-
-      - name: Prove isolation - write a marker file that should not survive
-        shell: cmd
-        run: echo this container is ephemeral > C:\marker-%RANDOM%.txt && dir C:\marker-*.txt
+      - name: Prove isolation - marker from the container must not exist on the runner host
+        shell: pwsh
+        run: |
+          if (Test-Path "C:\marker.txt") {
+            throw "ISOLATION FAILURE: C:\marker.txt leaked from the container onto the host"
+          }
+          Write-Output "Confirmed: container filesystem changes did not leak onto the host"
