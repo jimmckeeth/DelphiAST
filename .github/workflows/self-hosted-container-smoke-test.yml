@@ -1,0 +1,34 @@
+name: Self-hosted container smoke test
+
+on:
+  workflow_dispatch:
+
+jobs:
+  compile-in-container:
+    runs-on: [self-hosted, windows, delphi, container]
+    container:
+      image: delphi-builder:12-athens
+      volumes:
+        - 'C:\Program Files (x86)\Embarcadero:C:\Program Files (x86)\Embarcadero:ro'
+        - 'C:\Users\Public\Documents\Embarcadero:C:\Users\Public\Documents\Embarcadero:ro'
+    steps:
+      - name: Write a trivial Delphi program
+        shell: cmd
+        run: |
+          echo program Hello; > Hello.dpr
+          echo {$APPTYPE CONSOLE} >> Hello.dpr
+          echo begin >> Hello.dpr
+          echo   WriteLn('Hello from a process-isolated container'^); >> Hello.dpr
+          echo end. >> Hello.dpr
+
+      - name: Compile with dcc64
+        shell: cmd
+        run: dcc64.exe Hello.dpr
+
+      - name: Run the compiled binary
+        shell: cmd
+        run: Hello.exe
+
+      - name: Prove isolation - write a marker file that should not survive
+        shell: cmd
+        run: echo this container is ephemeral > C:\marker-%RANDOM%.txt && dir C:\marker-*.txt
