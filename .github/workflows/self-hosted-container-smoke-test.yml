@@ -24,7 +24,7 @@ jobs:
             -v "C:\Program Files (x86)\Embarcadero:C:\Program Files (x86)\Embarcadero:ro" `
             -v "C:\Users\Public\Documents\Embarcadero:C:\Users\Public\Documents\Embarcadero:ro" `
             -w C:\work `
-            delphi-builder:12-athens `
+            delphi-builder:13-florence `
             cmd /c "dcc64.exe Hello.dpr && Hello.exe && echo this container is ephemeral > C:\marker.txt && dir C:\marker.txt"
           if ($LASTEXITCODE -ne 0) { throw "container build failed with exit code $LASTEXITCODE" }
 
