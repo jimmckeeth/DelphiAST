@@ -1195,9 +1195,11 @@ end;
 
 procedure TPasSyntaxTreeBuilder.ConstantDeclaration;
 begin
-  FStack.Push(ntConstant);
+  //compound: a constant's value can span lines, so record where it ends. as TypeDeclaration.
+  FStack.PushCompoundSyntaxNode(ntConstant);
   try
     inherited;
+    SetCurrentCompoundNodesEndPosition;
   finally
     FStack.Pop;
   end;
@@ -1329,9 +1331,12 @@ begin
         if Constant.Typ <> ntName then
           Continue;
 
-        Temp := FStack.Push(ConstList.Typ);
+        //compound: start from the name, end from the ConstList that measured the value.
+        Temp := FStack.PushCompoundSyntaxNode(ConstList.Typ);
         try
           Temp.AssignPositionFrom(Constant);
+          if ConstList is TCompoundSyntaxNode then
+            TCompoundSyntaxNode(Temp).AssignEndPositionFrom(TCompoundSyntaxNode(ConstList));
 
           FStack.AddChild(Constant.Clone);
           if Assigned(TypeInfo) then
