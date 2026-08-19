@@ -419,32 +419,42 @@ var
   AttributeEntry: PAttributeEntry;
   len: Integer;
 begin
-  if not HasAttribute(Key) then
+  if (Value = '') then
   begin
-    if (Value = '') then Exit;  //no action needed
+    RemoveAttribute(Key); //no-op when the key is absent
+    Exit;
+  end;
+  //locate the entry, whether it already exists or has to be appended. Assigning the pointer
+  //only on the append path left it uninitialised when overwriting an attribute that was
+  //already set, and the write below then dereferenced it.
+  if not TryGetAttributeEntry(Key, AttributeEntry) then
+  begin
     len := Length(FAttributes);
     SetLength(FAttributes, len + 1);
     AttributeEntry := @FAttributes[len];
     AttributeEntry^.Key := Key;
     Include(FAttributesInUse, Key);
   end;
-  if (Value = '') then RemoveAttribute(Key);
   AttributeEntry^.Value := Value;
 end;
 
 procedure TSyntaxNode.RemoveAttribute(const Key: TAttributeName);
-const
-  Size = SizeOf(TAttributeEntry);
 var
-  Entry: PAttributeEntry;
-  Index: integer;
+  i, j: Integer;
 begin
-  if HasAttribute(Key) then begin
-    TryGetAttributeEntry(Key, Entry);
-    Index:= (NativeUInt(Entry) - NativeUInt(@FAttributes[0])) + Size;
-    Move(Entry^, Pointer(NativeUInt(Entry)+Size)^, (High(FAttributes) * Size) - Index);
-    Exclude(FAttributesInUse, Key);
-  end;
+  if not HasAttribute(Key) then
+    Exit;
+  for i := 0 to High(FAttributes) do
+    if FAttributes[i].Key = Key then
+    begin
+      //shift the tail down over the entry, then shrink. Assignment rather than Move: an entry
+      //holds a managed string, and moving those raw corrupts their reference counts.
+      for j := i to High(FAttributes) - 1 do
+        FAttributes[j] := FAttributes[j + 1];
+      SetLength(FAttributes, Length(FAttributes) - 1);
+      Exclude(FAttributesInUse, Key);
+      Exit;
+    end;
 end;
 
 function SameText(const Needle: string; const HayStack: array of string): boolean; overload;

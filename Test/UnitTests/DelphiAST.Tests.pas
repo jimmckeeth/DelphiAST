@@ -177,6 +177,25 @@ begin
   end;
 end;
 
+procedure TestSetAttributeTwice;
+var
+  Node: TSyntaxNode;
+begin
+  Node := TSyntaxNode.Create(ntMethod);
+  try
+    Node.Attribute[anName] := 'first';
+    AssertEquals('first', Node.Attribute[anName], 'First write');
+    Node.Attribute[anName] := 'second';
+    AssertEquals('second', Node.Attribute[anName], 'Overwriting an attribute');
+    Node.Attribute[anName] := '';
+    AssertEquals('', Node.Attribute[anName], 'Clearing an attribute');
+    Node.Attribute[anName] := 'again';
+    AssertEquals('again', Node.Attribute[anName], 'Setting it again after clearing');
+  finally
+    Node.Free;
+  end;
+end;
+
 procedure TestInvalidSyntax;
 var
   Root: TSyntaxNode;
@@ -229,6 +248,7 @@ begin
   RunTest('AST.GenericRecordAndProperty', TestGenericRecordAndProperty);
   RunTest('Writer.LiteralsUnicodeAndXmlEscaping', TestLiteralsAndUnicode);
   RunTest('AST.SourcePositions', TestSourcePositions);
+  RunTest('AST.SetAttributeTwice', TestSetAttributeTwice);
   RunTest('Parser.InvalidSyntax', TestInvalidSyntax);
   {$IFNDEF FPC}
   RunTest('Serialization.BinaryRoundTrip', TestBinarySerializationRoundTrip);
