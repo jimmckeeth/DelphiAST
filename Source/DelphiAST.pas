@@ -3210,9 +3210,11 @@ end;
 
 procedure TPasSyntaxTreeBuilder.VarDeclaration;
 begin
-  FStack.Push(ntVariables);
+  //compound: a variable's type or initialiser can span lines, so record where it ends.
+  FStack.PushCompoundSyntaxNode(ntVariables);
   try
     inherited;
+    SetCurrentCompoundNodesEndPosition;
   finally
     FStack.Pop;
   end;
@@ -3303,9 +3305,12 @@ begin
     begin
       if Variable.Typ <> ntName then
         Continue;
-      Temp := FStack.Push(ntVariable);
+      //compound: start from the name, end from the VarList that measured the declaration.
+      Temp := FStack.PushCompoundSyntaxNode(ntVariable);
       try
         Temp.AssignPositionFrom(Variable);
+        if VarList is TCompoundSyntaxNode then
+          TCompoundSyntaxNode(Temp).AssignEndPositionFrom(TCompoundSyntaxNode(VarList));
         FStack.AddChild(Variable.Clone);
         if Assigned(TypeInfo) then
           FStack.AddChild(TypeInfo.Clone);
