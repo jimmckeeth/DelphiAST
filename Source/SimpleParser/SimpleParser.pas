@@ -3648,6 +3648,16 @@ begin
             begin
               ConstantExpression;
             end;
+          { An operator after the identifier means the bound is a constant
+            expression, not a type name: array[mlab + 1..mlog]. Reading it as a
+            type name consumes the identifier alone and leaves the caller at the
+            operator, where it can only report an error. These are the operators
+            SimpleExpression and Term accept. }
+          ptAnd, ptDiv, ptMinus, ptMod, ptOr, ptPlus, ptShl, ptShr, ptSlash,
+          ptStar, ptXor:
+            begin
+              ConstantExpression;
+            end;
         else
           begin
             TypeID;
