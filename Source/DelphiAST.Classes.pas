@@ -104,6 +104,8 @@ type
     FEndLine: Integer;
   public
     function Clone: TSyntaxNode; override;
+    //counterpart to AssignPositionFrom, for a node rebuilt from a parsed one
+    procedure AssignEndPositionFrom(const Node: TCompoundSyntaxNode);
 
     property EndCol: Integer read FEndCol write FEndCol;
     property EndLine: Integer read FEndLine write FEndLine;
@@ -628,6 +630,12 @@ begin
 end;
 
 { TCompoundSyntaxNode }
+
+procedure TCompoundSyntaxNode.AssignEndPositionFrom(const Node: TCompoundSyntaxNode);
+begin
+  FEndCol := Node.EndCol;
+  FEndLine := Node.EndLine;
+end;
 
 function TCompoundSyntaxNode.Clone: TSyntaxNode;
 begin
