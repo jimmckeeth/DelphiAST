@@ -177,6 +177,70 @@ begin
   end;
 end;
 
+procedure TestConstantEndPosition;
+var
+  Root, ConstsNode, Node, Spanning, Single: TSyntaxNode;
+begin
+  Root := ParseSource('unit Consts;' + sLineBreak + 'interface' + sLineBreak + 'const' +
+    sLineBreak + '  Spanning = ''first part '' +' + sLineBreak + '    ''second part'';' +
+    sLineBreak + '  Single = 42;' + sLineBreak + 'implementation' + sLineBreak + 'end.');
+  try
+    ConstsNode := FindDescendant(Root, ntConstants);
+    AssertNotNil(ConstsNode, 'No const section was produced');
+    Spanning := nil;
+    Single := nil;
+    for Node in ConstsNode.ChildNodes do
+      if Node.Typ = ntConstant then
+        if Node.Line = 4 then
+          Spanning := Node
+        else if Node.Line = 6 then
+          Single := Node;
+
+    AssertNotNil(Spanning, 'No constant starting on line 4');
+    AssertTrue(Spanning is TCompoundSyntaxNode,
+      'Constant node must be compound so it can carry an end position');
+    AssertEquals(5, TCompoundSyntaxNode(Spanning).EndLine,
+      'A multi-line constant must reach the last line of its value');
+
+    AssertNotNil(Single, 'No constant starting on line 6');
+    AssertEquals(6, TCompoundSyntaxNode(Single).EndLine,
+      'A single-line constant must end on its own line, not run on to what follows');
+  finally
+    Root.Free;
+  end;
+end;
+
+procedure TestVariableEndPosition;
+var
+  Root, Node, Spanning, Single: TSyntaxNode;
+begin
+  Root := ParseSource('unit Vars;' + sLineBreak + 'interface' + sLineBreak + 'var' +
+    sLineBreak + '  Spanning: array[0..1] of' + sLineBreak + '    Integer;' + sLineBreak +
+    '  Single: Integer;' + sLineBreak + 'implementation' + sLineBreak + 'end.');
+  try
+    Spanning := nil;
+    Single := nil;
+    for Node in FindDescendant(Root, ntVariables).ChildNodes do
+      if Node.Typ = ntVariable then
+        if Node.Line = 4 then
+          Spanning := Node
+        else if Node.Line = 6 then
+          Single := Node;
+
+    AssertNotNil(Spanning, 'No variable starting on line 4');
+    AssertTrue(Spanning is TCompoundSyntaxNode,
+      'Variable node must be compound so it can carry an end position');
+    AssertEquals(5, TCompoundSyntaxNode(Spanning).EndLine,
+      'A variable whose declaration spans lines must reach its last line');
+
+    AssertNotNil(Single, 'No variable starting on line 6');
+    AssertEquals(6, TCompoundSyntaxNode(Single).EndLine,
+      'A single-line variable must end on its own line, not run on to what follows');
+  finally
+    Root.Free;
+  end;
+end;
+
 procedure TestInvalidSyntax;
 var
   Root: TSyntaxNode;
@@ -229,6 +293,8 @@ begin
   RunTest('AST.GenericRecordAndProperty', TestGenericRecordAndProperty);
   RunTest('Writer.LiteralsUnicodeAndXmlEscaping', TestLiteralsAndUnicode);
   RunTest('AST.SourcePositions', TestSourcePositions);
+  RunTest('AST.ConstantEndPosition', TestConstantEndPosition);
+  RunTest('AST.VariableEndPosition', TestVariableEndPosition);
   RunTest('Parser.InvalidSyntax', TestInvalidSyntax);
   {$IFNDEF FPC}
   RunTest('Serialization.BinaryRoundTrip', TestBinarySerializationRoundTrip);
